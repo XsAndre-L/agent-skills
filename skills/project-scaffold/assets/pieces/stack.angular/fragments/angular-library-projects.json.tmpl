@@ -1,0 +1,27 @@
+{
+  {{#each angular.libraryNames as this separator=","}}
+  "{{this}}": {
+    "projectType": "library",
+    "root": "{{relativePath frontend.root frontend.libsRoot/this}}",
+    "sourceRoot": "{{relativePath frontend.root frontend.libsRoot/this/src}}",
+    "prefix": "lib",
+    "architect": {
+      "build": {
+        "builder": "@angular/build:ng-packagr",
+        "options": {
+          "project": "{{relativePath frontend.root frontend.libsRoot/this/ng-package.json}}"
+        },
+        "configurations": {
+          "production": {
+            "tsConfig": "{{relativePath frontend.root frontend.libsRoot/this/tsconfig.lib.prod.json}}"
+          },
+          "development": {
+            "tsConfig": "{{relativePath frontend.root frontend.libsRoot/this/tsconfig.lib.json}}"
+          }
+        },
+        "defaultConfiguration": "production"
+      }
+    }
+  }
+  {{/each}}
+}

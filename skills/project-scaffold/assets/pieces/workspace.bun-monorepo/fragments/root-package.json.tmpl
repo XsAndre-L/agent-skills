@@ -1,0 +1,10 @@
+{
+  "name": "{{workspace.rootPackageName}}",
+  "private": {{workspace.rootPrivate}},
+  "packageManager": "bun@{{workspace.bunVersionPolicy}}",
+  "workspaces": [
+    "{{frontend.root}}",
+    "{{backend.root}}",
+    "{{workspace.sharedPackageRoots}}"
+  ]
+}

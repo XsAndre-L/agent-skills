@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 2,
+  "id": "structure.frontend",
+  "version": "1.1.0",
+  "kind": "structure",
+  "required": false,
+  "order": 5,
+  "provides": [
+    "structure.frontend",
+    "frontend-structure"
+  ],
+  "requires": [
+    "core.agents"
+  ],
+  "suggests": [],
+  "conflicts": [],
+  "owns": [],
+  "assemblies": [
+    {
+      "target": "{frontend.root}/README.md",
+      "template": "templates/README.md.tmpl",
+      "format": "markdown",
+      "slots": {
+        "base": {
+          "type": "markdown"
+        }
+      }
+    }
+  ],
+  "contributes": [
+    {
+      "target": "{frontend.root}/README.md",
+      "slot": "base",
+      "key": "structure.frontend:readme-base",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/readme.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/AGENTS.md",
+      "slot": "scope-routing",
+      "key": "structure.frontend:routing",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/routing.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/README.md",
+      "slot": "scopes",
+      "key": "structure.frontend:agent-index",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/agent-index.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/shared/project.md",
+      "slot": "structure",
+      "key": "structure.frontend:project",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/project.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/shared/validation.md",
+      "slot": "structure",
+      "key": "structure.frontend:validation",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/validation.md.tmpl"
+      }
+    }
+  ],
+  "parameters": {
+    "frontend.root": {
+      "type": "string",
+      "required": true,
+      "default": "frontend",
+      "pathDisjointFrom": [
+        "backend.root"
+      ],
+      "description": "Normalized target-relative frontend boundary root."
+    },
+    "frontend.appsRoot": {
+      "type": "string",
+      "required": true,
+      "default": "{frontend.root}/apps",
+      "nestedUnder": "frontend.root",
+      "pathDisjointFrom": [
+        "frontend.libsRoot"
+      ],
+      "description": "Normalized target-relative application root nested under frontend.root."
+    },
+    "frontend.libsRoot": {
+      "type": "string",
+      "required": true,
+      "default": "{frontend.root}/libs",
+      "nestedUnder": "frontend.root",
+      "pathDisjointFrom": [
+        "frontend.appsRoot"
+      ],
+      "description": "Normalized target-relative reusable library root nested under frontend.root."
+    },
+    "frontend.scopeName": {
+      "type": "string",
+      "required": true,
+      "default": "frontend",
+      "pattern": "^(?!(?:prompts|shared|skills|con|prn|aux|nul|com[1-9]|lpt[1-9])$)[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Safe single-segment label used for frontend ownership routing."
+    }
+  },
+  "emits": []
+}

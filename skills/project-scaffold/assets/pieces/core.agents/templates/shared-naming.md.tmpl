@@ -1,0 +1,44 @@
+# Plain-language Naming
+
+Names should help a new contributor understand the project without first
+learning its internal architecture. Before creating or renaming anything, name
+the user-facing capability or project responsibility it represents.
+
+## Choose a name
+
+1. Identify the concept and its scope.
+2. Use the established plain project vocabulary. Use one canonical term for
+   one concept instead of introducing synonyms.
+3. Prefer the capability or responsibility over the implementation mechanism.
+4. Ask: “Could a new user correctly guess what this does from its name alone?”
+5. Keep technical pattern names for architecture explanations or places where
+   the pattern itself is the concept.
+
+Framework-specific guidance may specialize required syntax and conventional
+filenames, but it must not replace clear project vocabulary.
+
+## Apply the rule everywhere
+
+Apply this rule to variables, constants, functions, methods, classes, types,
+components, services, files, folders, modules, packages, libraries, commands,
+scripts, configuration keys, APIs, database and persisted concepts, events, UI
+labels, and documentation terminology.
+
+## Preserve real identities
+
+Preserve a canonical proper name only when the concept represents that exact
+real, biological, fictional, geographic, organizational, product, or protocol
+identity. Prefer storing proper names as data. Never use arbitrary people,
+animals, or character names as metaphors for technical responsibilities.
+
+## Rename completely and safely
+
+Before renaming:
+
+1. Find usages across source, paths, UI, tests, documentation, configuration,
+   commands, imports and exports, APIs, persistence, events, and generated
+   contracts.
+2. Identify public, persisted, or externally consumed names.
+3. Flag every breaking public-name change before applying it and provide the
+   migration or compatibility plan.
+4. Update every affected surface together and remove stale competing terms.

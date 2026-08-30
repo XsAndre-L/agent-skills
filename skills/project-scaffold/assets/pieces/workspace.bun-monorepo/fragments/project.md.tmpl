@@ -1,0 +1,14 @@
+## Bun workspace
+
+Workspace identity: `{{workspace.identity}}`.
+
+The root package coordinates three deterministic workspace entries, in order:
+
+1. frontend application root: `{{frontend.root}}`;
+2. backend application root: `{{backend.root}}`;
+3. shared library package glob: `{{workspace.sharedPackageRoots}}`.
+
+Each package owns its dependencies, scripts, sources, and framework choices.
+The root delegates package work and does not absorb application behavior.
+Frontend and backend structure pieces are optional; this workspace contract
+does not create or claim their directories.

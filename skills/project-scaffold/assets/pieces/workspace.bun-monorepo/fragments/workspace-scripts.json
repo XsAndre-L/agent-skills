@@ -1,0 +1,8 @@
+{
+  "build": "bun run --workspaces --if-present build",
+  "dev": "bun run --workspaces --if-present --parallel dev",
+  "lint": "bun run --workspaces --if-present lint",
+  "test": "bun run --workspaces --if-present test",
+  "typecheck": "bun run --workspaces --if-present typecheck",
+  "verify": "bun run --workspaces --if-present verify"
+}

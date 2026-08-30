@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 2,
+  "id": "structure.backend",
+  "version": "1.1.0",
+  "kind": "structure",
+  "required": false,
+  "order": 6,
+  "provides": [
+    "structure.backend",
+    "backend-structure"
+  ],
+  "requires": [
+    "core.agents"
+  ],
+  "suggests": [],
+  "conflicts": [],
+  "owns": [],
+  "assemblies": [
+    {
+      "target": "{backend.root}/README.md",
+      "template": "templates/README.md.tmpl",
+      "format": "markdown",
+      "slots": {
+        "base": {
+          "type": "markdown"
+        }
+      }
+    }
+  ],
+  "contributes": [
+    {
+      "target": "{backend.root}/README.md",
+      "slot": "base",
+      "key": "structure.backend:readme-base",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/readme.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/AGENTS.md",
+      "slot": "scope-routing",
+      "key": "structure.backend:routing",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/routing.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/README.md",
+      "slot": "scopes",
+      "key": "structure.backend:agent-index",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/agent-index.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/shared/project.md",
+      "slot": "structure",
+      "key": "structure.backend:project",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/project.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/shared/validation.md",
+      "slot": "structure",
+      "key": "structure.backend:validation",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/validation.md.tmpl"
+      }
+    }
+  ],
+  "parameters": {
+    "backend.root": {
+      "type": "string",
+      "required": true,
+      "default": "backend",
+      "pathDisjointFrom": [
+        "frontend.root"
+      ],
+      "description": "Normalized target-relative backend boundary root."
+    },
+    "backend.appsRoot": {
+      "type": "string",
+      "required": true,
+      "default": "{backend.root}/apps",
+      "nestedUnder": "backend.root",
+      "pathDisjointFrom": [
+        "backend.libsRoot"
+      ],
+      "description": "Normalized target-relative application root nested under backend.root."
+    },
+    "backend.libsRoot": {
+      "type": "string",
+      "required": true,
+      "default": "{backend.root}/libs",
+      "nestedUnder": "backend.root",
+      "pathDisjointFrom": [
+        "backend.appsRoot"
+      ],
+      "description": "Normalized target-relative reusable library root nested under backend.root."
+    },
+    "backend.scopeName": {
+      "type": "string",
+      "required": true,
+      "default": "backend",
+      "pattern": "^(?!(?:prompts|shared|skills|con|prn|aux|nul|com[1-9]|lpt[1-9])$)[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Safe single-segment label used for backend ownership routing."
+    }
+  },
+  "emits": []
+}

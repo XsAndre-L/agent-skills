@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 2,
+  "id": "workspace.bun-monorepo",
+  "version": "2.0.0",
+  "kind": "structure",
+  "required": false,
+  "order": 2,
+  "provides": [
+    "workspace.bun-monorepo",
+    "bun-workspace",
+    "workspace-root-package"
+  ],
+  "requires": [
+    "core.agents"
+  ],
+  "suggests": [],
+  "conflicts": [],
+  "owns": [
+    {
+      "path": "bunfig.toml",
+      "template": "templates/bunfig.toml.tmpl"
+    }
+  ],
+  "assemblies": [
+    {
+      "target": "package.json",
+      "template": "templates/package.json.tmpl",
+      "format": "json",
+      "slots": {
+        "root-object": {
+          "type": "json",
+          "placement": "root"
+        },
+        "scripts": {
+          "type": "json",
+          "placement": "property"
+        }
+      }
+    }
+  ],
+  "contributes": [
+    {
+      "target": "package.json",
+      "slot": "root-object",
+      "key": "workspace.bun-monorepo:root-package",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/root-package.json.tmpl"
+      }
+    },
+    {
+      "target": "package.json",
+      "slot": "scripts",
+      "key": "workspace.bun-monorepo:workspace-scripts",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/workspace-scripts.json"
+      }
+    },
+    {
+      "target": ".agents/shared/project.md",
+      "slot": "workspace",
+      "key": "workspace.bun-monorepo:project",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/project.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/shared/commands.md",
+      "slot": "workspace",
+      "key": "workspace.bun-monorepo:commands",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/commands.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/shared/validation.md",
+      "slot": "workspace",
+      "key": "workspace.bun-monorepo:validation",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/validation.md.tmpl"
+      }
+    }
+  ],
+  "parameters": {
+    "workspace.identity": {
+      "type": "string",
+      "required": true,
+      "default": "bun-monorepo",
+      "pattern": "^\\S(?:.*\\S)?$",
+      "description": "Stable human-readable identity used in workspace guidance."
+    },
+    "workspace.rootPackageName": {
+      "type": "string",
+      "required": true,
+      "default": "workspace-root",
+      "pattern": "^(?:@[a-z0-9][a-z0-9._-]*/)?[a-z0-9][a-z0-9._-]*$",
+      "description": "Valid root package name written to package.json."
+    },
+    "frontend.root": {
+      "type": "string",
+      "required": true,
+      "default": "frontend",
+      "pathDisjointFrom": [
+        "backend.root"
+      ],
+      "description": "Normalized target-relative frontend boundary root."
+    },
+    "backend.root": {
+      "type": "string",
+      "required": true,
+      "default": "backend",
+      "pathDisjointFrom": [
+        "frontend.root"
+      ],
+      "description": "Normalized target-relative backend boundary root."
+    },
+    "workspace.sharedPackageRoots": {
+      "type": "string",
+      "required": true,
+      "default": "packages/*",
+      "pattern": "^(?!/)(?!.*\\.\\.)(?!.*//)(?!.*\/$)[A-Za-z0-9._/*-]+$",
+      "description": "Normalized Bun workspace glob covering shared library package roots."
+    },
+    "workspace.bunVersionPolicy": {
+      "type": "string",
+      "required": true,
+      "default": "1.3.14",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$",
+      "description": "Exact Bun version declared through packageManager as bun@<version>."
+    },
+    "workspace.rootPrivate": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether the root workspace package is private."
+    }
+  },
+  "emits": []
+}

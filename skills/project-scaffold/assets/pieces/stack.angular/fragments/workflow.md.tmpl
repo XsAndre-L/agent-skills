@@ -1,0 +1,30 @@
+## Create or extend the Angular workspace
+
+Scaffold apply renders the deterministic equivalent of Angular CLI output. It
+does not execute Angular CLI.
+
+For this repository, this scoped workflow overrides the emitted
+`angular-new-app` skill's generic npm/npx single-application bootstrap
+defaults. Use the Bun empty-workspace sequence below so no root `src/`
+application is created.
+
+For a manual recreation, start from the repository root with an empty Angular
+workspace so Angular never creates `{frontend.root}/src`:
+
+```bash
+bunx @angular/cli@22 new {{angular.defaultApplication}}-workspace --directory {frontend.root} --no-create-application --new-project-root {{relativePath frontend.root frontend.appsRoot}} --package-manager bun --skip-install --interactive=false
+```
+
+Then run application generation from `{frontend.root}` with the explicit
+destination and resolved options:
+
+```bash
+{{#each angular.applicationNames as this}}
+bunx @angular/cli@22 generate application {{this}} --project-root={{relativePath frontend.root frontend.appsRoot/this}} --skip-tests --standalone --strict --zoneless --style={angular.styleMode} --ssr={angular.ssr} --interactive=false
+{{/each}}
+```
+
+Routing is resolved as `{angular.routingMode}`: add `--routing` when enabled
+or `--no-routing` when disabled. Do not accept an interactive default. Add
+libraries with the same discipline under `{frontend.libsRoot}`; never use
+Angular CLI's root application layout.

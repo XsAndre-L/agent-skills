@@ -1,0 +1,16 @@
+## Bun workspace commands
+
+Run workspace commands from the repository root:
+
+```bash
+bun install
+bun install --frozen-lockfile
+bun run --workspaces --if-present build
+bun run --workspaces --if-present typecheck
+bun run --cwd {{frontend.root}} <script>
+bun run --cwd {{backend.root}} <script>
+```
+
+Use package-local scripts as the behavior boundary. Root scripts delegate
+through Bun workspaces and do not encode framework, release, or delivery
+commands.

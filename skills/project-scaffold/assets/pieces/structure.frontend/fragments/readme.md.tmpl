@@ -1,0 +1,17 @@
+This boundary contains frontend applications and reusable frontend libraries.
+Later capability pieces own the exact files placed beneath these roots.
+
+## Directory map
+
+- Boundary root: `{{frontend.root}}`
+- Runnable application packages: `{{frontend.appsRoot}}/`
+- Reusable frontend libraries: `{{frontend.libsRoot}}/`
+
+Applications own composition, platform entry points, and application-specific
+adapters. Libraries hold reusable UI, state, data-access, and utility
+boundaries. Shared UI belongs in an explicit library rather than being copied
+between applications. Generated artifacts are outputs, not maintained source,
+and must remain distinguishable from both application and library code.
+
+This structure does not select a framework, build tool, platform, or test
+runner.

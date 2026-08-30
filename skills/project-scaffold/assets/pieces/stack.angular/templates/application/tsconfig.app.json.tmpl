@@ -1,0 +1,13 @@
+{
+  "extends": "{{relativePath frontend.appsRoot/this frontend.root/tsconfig.json}}",
+  "compilerOptions": {
+    "outDir": "{{relativePath frontend.appsRoot/this frontend.root/out-tsc/app/this}}",
+    "types": []
+  },
+  "exclude": [
+    "src/**/*.spec.ts"
+  ],
+  "include": [
+    "src/**/*.ts"
+  ]
+}

@@ -1,0 +1,22 @@
+import {
+  ApplicationConfig,
+  provideZonelessChangeDetection,
+} from '@angular/core';
+import {
+  provideClientHydration,
+  withEventReplay,
+} from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
+import { routes } from './app.routes';
+
+const hydrationProviders = {{angular.ssr}}
+  ? [provideClientHydration(withEventReplay())]
+  : [];
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZonelessChangeDetection(),
+    provideRouter(routes),
+    ...hydrationProviders,
+  ],
+};

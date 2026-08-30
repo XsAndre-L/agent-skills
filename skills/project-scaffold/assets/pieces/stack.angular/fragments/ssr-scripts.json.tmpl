@@ -1,0 +1,5 @@
+{
+  {{#each angular.applicationNames as this separator=","}}
+  "serve:ssr:{{this}}": "bun dist/{{this}}/server/server.mjs"
+  {{/each}}
+}

@@ -1,0 +1,25 @@
+## Cross-stack test placement
+
+Apply only the rows for stack roots that exist in the selected composition.
+
+| Asset | Location | Naming |
+| --- | --- | --- |
+| Frontend unit | {{testing.frontendUnitRoot}} | *{{testing.unitSuffix}} |
+| Frontend integration | {{testing.frontendIntegrationRoot}} | *{{testing.integrationSuffix}} |
+| Backend unit/spec | {{testing.backendUnitRoot}} | *{{testing.unitSuffix}} |
+| Backend migration | {{testing.backendMigrationRoot}} | *{{testing.unitSuffix}} |
+| Backend integration | {{testing.backendIntegrationRoot}} | *{{testing.integrationSuffix}} |
+| End-to-end | {{testing.e2eRoot}} | *{{testing.e2eSuffix}} |
+| Fixtures | {{testing.fixtureRoot}} | descriptive, stable input names |
+| Generated test assets | {{testing.generatedAssetRoot}} | generator-defined deterministic names |
+
+Unit tests may be colocated with source: {{testing.colocated}}. Colocated
+frontend and backend specs may sit beside a source file or in a feature-owned
+tests directory beneath an application root. Centralized migration specs use
+the configured migration root; application-local migration specs may remain in
+an application-owned `src/db/tests/migrations` boundary.
+
+Fixtures are maintained inputs and must not be mixed with generated output.
+Generated assets must be reproducible and must not be edited as source. A
+separate framework capability owns runner selection, discovery configuration,
+and test execution commands.

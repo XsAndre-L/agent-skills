@@ -1,0 +1,62 @@
+{
+  {{#each angular.applicationNames as this separator=","}}
+  "{{this}}": {
+    "projectType": "application",
+    "root": "{{relativePath frontend.root frontend.appsRoot/this}}",
+    "sourceRoot": "{{relativePath frontend.root frontend.appsRoot/this/src}}",
+    "prefix": "app",
+    "architect": {
+      "build": {
+        "builder": "@angular/build:application",
+        "options": {
+          "outputPath": "dist/{{this}}",
+          "index": "{{relativePath frontend.root frontend.appsRoot/this/src/index.html}}",
+          "browser": "{{relativePath frontend.root frontend.appsRoot/this/src/main.ts}}",
+          "tsConfig": "{{relativePath frontend.root frontend.appsRoot/this/tsconfig.app.json}}",
+          "inlineStyleLanguage": "{{angular.styleMode}}",
+          "assets": [],
+          "styles": [
+            "{{relativePath frontend.root frontend.appsRoot/this/src/styles.{{angular.styleMode}}}}"
+          ],
+          "scripts": []
+        },
+        "configurations": {
+          "production": {
+            "budgets": [
+              {
+                "type": "initial",
+                "maximumWarning": "500kB",
+                "maximumError": "1MB"
+              },
+              {
+                "type": "anyComponentStyle",
+                "maximumWarning": "4kB",
+                "maximumError": "8kB"
+              }
+            ],
+            "outputHashing": "all"
+          },
+          "development": {
+            "optimization": false,
+            "extractLicenses": false,
+            "sourceMap": true
+          }
+        },
+        "defaultConfiguration": "production"
+      },
+      "serve": {
+        "builder": "@angular/build:dev-server",
+        "configurations": {
+          "production": {
+            "buildTarget": "{{this}}:build:production"
+          },
+          "development": {
+            "buildTarget": "{{this}}:build:development"
+          }
+        },
+        "defaultConfiguration": "development"
+      }
+    }
+  }
+  {{/each}}
+}

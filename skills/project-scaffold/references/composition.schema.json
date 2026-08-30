@@ -1,0 +1,621 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://purelyit.example/schemas/project-scaffold-piece.schema.json",
+  "title": "Project Scaffold Piece",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "kind",
+    "required",
+    "order",
+    "provides",
+    "requires",
+    "suggests",
+    "conflicts",
+    "owns",
+    "assemblies",
+    "contributes",
+    "parameters",
+    "emits"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 2
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "version": {
+      "$ref": "#/$defs/version"
+    },
+    "kind": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "required": {
+      "type": "boolean"
+    },
+    "order": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "provides": {
+      "$ref": "#/$defs/idList"
+    },
+    "requires": {
+      "$ref": "#/$defs/idList"
+    },
+    "suggests": {
+      "$ref": "#/$defs/idList"
+    },
+    "conflicts": {
+      "$ref": "#/$defs/idList"
+    },
+    "owns": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ownedPath"
+      }
+    },
+    "assemblies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/assemblyRegistration"
+      }
+    },
+    "contributes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/contribution"
+      }
+    },
+    "parameters": {
+      "type": "object",
+      "propertyNames": {
+        "$ref": "#/$defs/parameterId"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/parameter"
+      }
+    },
+    "emits": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/emission"
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "skillName": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "idList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/id"
+      }
+    },
+    "profileDescriptor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "id",
+        "ownedBy",
+        "description",
+        "extends",
+        "pieces",
+        "pieceOrders",
+        "excludeKinds",
+        "parameters"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 2
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "ownedBy": {
+          "$ref": "#/$defs/id"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "extends": {
+          "$ref": "#/$defs/idList"
+        },
+        "pieces": {
+          "$ref": "#/$defs/idList"
+        },
+        "pieceOrders": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "excludeKinds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$"
+          }
+        },
+        "parameters": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/parameterId"
+          }
+        }
+      }
+    },
+    "parameterId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-zA-Z0-9]*)+$"
+    },
+    "parameter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "string",
+            "boolean",
+            "integer",
+            "number",
+            "array",
+            "object"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "default": true,
+        "enum": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "pattern": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minItems": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "uniqueItems": {
+          "type": "boolean"
+        },
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "string",
+                "boolean",
+                "integer",
+                "number",
+                "object"
+              ]
+            },
+            "pattern": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "memberOf": {
+          "$ref": "#/$defs/parameterId"
+        },
+        "nestedUnder": {
+          "$ref": "#/$defs/parameterId"
+        },
+        "equalTo": {
+          "$ref": "#/$defs/parameterId"
+        },
+        "distinctFrom": {
+          "$ref": "#/$defs/parameterIdList"
+        },
+        "pathDisjointFrom": {
+          "$ref": "#/$defs/parameterIdList"
+        }
+      }
+    },
+    "parameterIdList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/parameterId"
+      }
+    },
+    "variables": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "ownedForEach": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parameter",
+        "as"
+      ],
+      "properties": {
+        "parameter": {
+          "$ref": "#/$defs/parameterId"
+        },
+        "as": {
+          "$ref": "#/$defs/parameterId"
+        }
+      }
+    },
+    "slot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "markdown",
+            "json",
+            "typescript",
+            "toml",
+            "yaml"
+          ]
+        },
+        "placement": {
+          "enum": [
+            "root",
+            "property"
+          ]
+        },
+        "property": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "json"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "placement"
+            ]
+          },
+          "else": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "placement"
+                  ]
+                },
+                {
+                  "required": [
+                    "property"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "placement": {
+                "const": "root"
+              }
+            },
+            "required": [
+              "placement"
+            ]
+          },
+          "then": {
+            "not": {
+              "required": [
+                "property"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "assembly": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "format",
+        "slots"
+      ],
+      "properties": {
+        "format": {
+          "enum": [
+            "markdown",
+            "json",
+            "typescript",
+            "toml",
+            "yaml"
+          ]
+        },
+        "slots": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "$ref": "#/$defs/id"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/slot"
+          }
+        }
+      }
+    },
+    "assemblyRegistration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target",
+        "template",
+        "format",
+        "slots"
+      ],
+      "properties": {
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "template": {
+          "type": "string",
+          "minLength": 1
+        },
+        "format": {
+          "enum": [
+            "markdown",
+            "json",
+            "typescript",
+            "toml",
+            "yaml"
+          ]
+        },
+        "slots": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "$ref": "#/$defs/id"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/slot"
+          }
+        }
+      }
+    },
+    "when": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parameter",
+        "equals"
+      ],
+      "properties": {
+        "parameter": {
+          "$ref": "#/$defs/parameterId"
+        },
+        "equals": true
+      }
+    },
+    "ownedPath": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "template": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generated": {
+          "const": "scaffold-lock"
+        },
+        "variables": {
+          "$ref": "#/$defs/variables"
+        },
+        "assembly": {
+          "$ref": "#/$defs/assembly"
+        },
+        "forEach": {
+          "$ref": "#/$defs/ownedForEach"
+        },
+        "when": {
+          "$ref": "#/$defs/when"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "template"
+          ],
+          "not": {
+            "required": [
+              "generated"
+            ]
+          }
+        },
+        {
+          "required": [
+            "generated"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "template"
+                ]
+              },
+              {
+                "required": [
+                  "assembly"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "allOf": [
+        {
+          "not": {
+            "required": [
+              "assembly",
+              "when"
+            ]
+          }
+        }
+      ]
+    },
+    "fragment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "source"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "markdown",
+            "json",
+            "typescript",
+            "toml",
+            "yaml"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "contribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target",
+        "slot",
+        "key",
+        "fragment"
+      ],
+      "properties": {
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "slot": {
+          "$ref": "#/$defs/id"
+        },
+        "key": {
+          "type": "string",
+          "minLength": 3
+        },
+        "fragment": {
+          "$ref": "#/$defs/fragment"
+        },
+        "when": {
+          "$ref": "#/$defs/when"
+        }
+      }
+    },
+    "migration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "from"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/id"
+        },
+        "from": {
+          "type": "string",
+          "pattern": "^\\.agents/skills/[a-z0-9]+(?:-[a-z0-9]+)*$"
+        }
+      }
+    },
+    "emission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "source",
+        "destination"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/skillName"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "destination": {
+          "type": "string",
+          "minLength": 1
+        },
+        "adopt": {
+          "type": "boolean",
+          "default": false
+        },
+        "migrations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/migration"
+          }
+        }
+      }
+    }
+  }
+}

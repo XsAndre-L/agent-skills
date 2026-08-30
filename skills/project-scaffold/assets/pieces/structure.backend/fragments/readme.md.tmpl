@@ -1,0 +1,17 @@
+This boundary contains backend applications and reusable backend libraries.
+Later capability pieces own the exact files placed beneath these roots.
+
+## Directory map
+
+- Boundary root: `{{backend.root}}`
+- Runnable service or worker packages: `{{backend.appsRoot}}/`
+- Reusable backend libraries: `{{backend.libsRoot}}/`
+
+Applications own runtime composition, entry points, and application-specific
+adapters. Libraries hold reusable domain, contract, data-access, and utility
+boundaries. Domain code should not depend directly on infrastructure adapters.
+Generated artifacts are outputs, not maintained source, and must remain
+distinguishable from both application and library code.
+
+This structure does not select a framework, transport, database, deployment
+system, build tool, or test runner.

@@ -1,0 +1,14 @@
+## Angular structure
+
+- Confirm `angular.applicationNames` is non-empty, ordered, unique, and kebab-case, and that `angular.defaultApplication` names one selected application.
+- Confirm application and library names do not overlap; overlapping names collide in the assembled `angular.json` projects object.
+- Confirm every project root is beneath the resolved apps or libraries root and no `{frontend.root}/src` application exists.
+- Confirm `angular.json`, package scripts, owned shell paths, and TypeScript extends paths resolve from `{frontend.root}`.
+- Confirm the style mode is one of css, scss, sass, or less; routing and SSR outputs match their resolved parameters.
+- Confirm Angular packages remain on the declared Angular 22 policy, TypeScript remains on 6.0.x, and optional dependencies appear only for their selected conditions.
+- Confirm emitted `angular-developer` and `angular-new-app` folders, destinations, inventories, and frontmatter names match exactly.
+
+Preflight must reject unsafe or duplicate names, a missing default
+application, absolute or traversing paths, application/library project-key
+collisions, incompatible style values, owned-path collisions, and same-name
+formal-skill conflicts before any target write.

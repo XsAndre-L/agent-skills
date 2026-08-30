@@ -1,0 +1,12 @@
+## Angular workspace
+
+- Install the Bun workspace: `bun install`.
+- Serve the default application: `bun run --cwd {frontend.root} dev`.
+- Build the default application: `bun run --cwd {frontend.root} build`.
+{{#each angular.applicationNames as this}}- Serve `{{this}}`: `bun run --cwd {frontend.root} dev:{{this}}`.
+- Build `{{this}}`: `bun run --cwd {frontend.root} build:{{this}}`.
+{{/each}}
+
+Use the application-specific scripts in multi-application workspaces. These
+commands stay Angular-only; Apollo, Tauri, testing, release, and delivery
+commands come from their own selected pieces.

@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 2,
+  "id": "core.agents",
+  "version": "1.4.0",
+  "kind": "foundation",
+  "required": true,
+  "order": 1,
+  "provides": [
+    "core.agents",
+    "agent-governance-foundation",
+    "plain-language-naming",
+    "recursive-piece-discovery",
+    "recursive-profile-discovery",
+    "dependency-closure",
+    "deterministic-ordering",
+    "conflict-groups",
+    "owned-path-preflight",
+    "keyed-contribution-assembly",
+    "shared-parameter-resolution",
+    "formal-skill-emission",
+    "scaffold-provenance"
+  ],
+  "requires": [],
+  "suggests": [],
+  "conflicts": [],
+  "owns": [
+    {
+      "path": ".project-scaffold.lock.json",
+      "generated": "scaffold-lock"
+    },
+    {
+      "path": ".agents/shared/naming.md",
+      "template": "templates/shared-naming.md.tmpl"
+    }
+  ],
+  "assemblies": [
+    {
+      "target": "AGENTS.md",
+      "template": "templates/root-AGENTS.md.tmpl",
+      "format": "markdown",
+      "slots": {
+        "bootstrap.routes": {
+          "type": "markdown"
+        }
+      }
+    },
+    {
+      "target": ".agents/AGENTS.md",
+      "template": "templates/agents-AGENTS.md.tmpl",
+      "format": "markdown",
+      "slots": {
+        "routing.first-read": {
+          "type": "markdown"
+        },
+        "conditional-reads": {
+          "type": "markdown"
+        },
+        "docs-routing": {
+          "type": "markdown"
+        },
+        "scope-routing": {
+          "type": "markdown"
+        },
+        "routing.scopes": {
+          "type": "markdown"
+        },
+        "routing.skills": {
+          "type": "markdown"
+        }
+      }
+    },
+    {
+      "target": ".agents/README.md",
+      "template": "templates/agents-README.md.tmpl",
+      "format": "markdown",
+      "slots": {
+        "documentation-layout": {
+          "type": "markdown"
+        },
+        "scopes": {
+          "type": "markdown"
+        },
+        "knowledge.layout": {
+          "type": "markdown"
+        },
+        "knowledge.routing": {
+          "type": "markdown"
+        }
+      }
+    },
+    {
+      "target": ".agents/shared/project.md",
+      "template": "templates/shared-project.md.tmpl",
+      "format": "markdown",
+      "slots": {
+        "documentation": {
+          "type": "markdown"
+        },
+        "structure": {
+          "type": "markdown"
+        },
+        "testing": {
+          "type": "markdown"
+        },
+        "workspace": {
+          "type": "markdown"
+        },
+        "project.architecture": {
+          "type": "markdown"
+        }
+      }
+    },
+    {
+      "target": ".agents/shared/commands.md",
+      "template": "templates/shared-commands.md.tmpl",
+      "format": "markdown",
+      "slots": {
+        "frontend": {
+          "type": "markdown"
+        },
+        "workspace": {
+          "type": "markdown"
+        },
+        "commands.catalog": {
+          "type": "markdown"
+        }
+      }
+    },
+    {
+      "target": ".agents/shared/validation.md",
+      "template": "templates/shared-validation.md.tmpl",
+      "format": "markdown",
+      "slots": {
+        "documentation": {
+          "type": "markdown"
+        },
+        "frontend": {
+          "type": "markdown"
+        },
+        "structure": {
+          "type": "markdown"
+        },
+        "testing": {
+          "type": "markdown"
+        },
+        "workspace": {
+          "type": "markdown"
+        },
+        "validation.matrix": {
+          "type": "markdown"
+        }
+      }
+    },
+    {
+      "target": ".agents/shared/testing-layout.md",
+      "template": "templates/shared-testing-layout.md.tmpl",
+      "format": "markdown",
+      "slots": {
+        "base": {
+          "type": "markdown"
+        },
+        "testing.rules": {
+          "type": "markdown"
+        }
+      }
+    },
+    {
+      "target": ".agents/skills/README.md",
+      "template": "templates/skills-README.md.tmpl",
+      "format": "markdown",
+      "slots": {
+        "skills.catalog": {
+          "type": "markdown"
+        }
+      }
+    }
+  ],
+  "contributes": [],
+  "parameters": {
+    "project.name": {
+      "type": "string",
+      "required": true,
+      "description": "Human-readable project name used by foundation templates."
+    },
+    "project.scopes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "uniqueItems": true,
+      "default": [],
+      "description": "Selected ownership scope identities; structure pieces decide which scope files exist."
+    },
+    "composition.profile": {
+      "type": "string",
+      "required": true,
+      "description": "Engine-owned identity of the recursively expanded profile."
+    },
+    "emission.collisionPolicy": {
+      "type": "string",
+      "enum": [
+        "fail",
+        "adopt",
+        "replace",
+        "migrate"
+      ],
+      "default": "fail",
+      "description": "Explicit formal-skill destination collision policy."
+    }
+  },
+  "emits": []
+}

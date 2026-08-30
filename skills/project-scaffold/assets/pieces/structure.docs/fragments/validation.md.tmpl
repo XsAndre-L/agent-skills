@@ -1,0 +1,15 @@
+## Documentation structure
+
+- Confirm docs.root and configured subpaths are normalized target-relative
+  paths without traversal or unresolved values.
+- Confirm docs.categories remains ordered, unique, and limited to safe
+  single-directory names; no category may equal the final docs.root directory
+  name.
+- Confirm every configured category has one index and every index links back
+  to /{{docs.root}}/README.md.
+- Confirm the root index links each category through /{{docs.root}}/ and has no
+  ambiguous or stale destination.
+- Confirm category indexes, decision records, governance templates, and other
+  owned outputs do not collide.
+- Keep durable documentation authoritative; .agents guidance should route to
+  it rather than duplicate it.

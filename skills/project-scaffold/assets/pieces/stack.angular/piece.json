@@ -1,0 +1,520 @@
+{
+  "schemaVersion": 2,
+  "id": "stack.angular",
+  "version": "1.0.0",
+  "kind": "capability",
+  "required": false,
+  "order": 7,
+  "provides": [
+    "stack.angular",
+    "angular-stack"
+  ],
+  "requires": [
+    "core.agents",
+    "structure.frontend",
+    "workspace.bun-monorepo"
+  ],
+  "suggests": [],
+  "conflicts": [],
+  "owns": [
+    {
+      "path": "{frontend.root}/tsconfig.json",
+      "template": "templates/tsconfig.json.tmpl"
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/src/main.ts",
+      "template": "templates/application/src/main.ts.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      }
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/src/index.html",
+      "template": "templates/application/src/index.html.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      }
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/src/styles.{angular.styleMode}",
+      "template": "templates/application/src/styles.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      }
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/src/app/app.ts",
+      "template": "templates/application/src/app/app.ts.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      }
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/src/app/app.html",
+      "template": "templates/application/src/app/app.html.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      }
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/src/app/app.{angular.styleMode}",
+      "template": "templates/application/src/app/app.style.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      }
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/src/app/app.config.ts",
+      "template": "templates/application/src/app/app.config.routing.ts.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      },
+      "when": {
+        "parameter": "angular.routingMode",
+        "equals": "enabled"
+      }
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/src/app/app.config.ts",
+      "template": "templates/application/src/app/app.config.no-routing.ts.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      },
+      "when": {
+        "parameter": "angular.routingMode",
+        "equals": "disabled"
+      }
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/src/app/app.routes.ts",
+      "template": "templates/application/src/app/app.routes.ts.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      },
+      "when": {
+        "parameter": "angular.routingMode",
+        "equals": "enabled"
+      }
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/tsconfig.app.json",
+      "template": "templates/application/tsconfig.app.json.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      }
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/src/main.server.ts",
+      "template": "templates/application/src/main.server.ts.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      },
+      "when": {
+        "parameter": "angular.ssr",
+        "equals": true
+      }
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/src/server.ts",
+      "template": "templates/application/src/server.ts.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      },
+      "when": {
+        "parameter": "angular.ssr",
+        "equals": true
+      }
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/src/app/app.config.server.ts",
+      "template": "templates/application/src/app/app.config.server.ts.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      },
+      "when": {
+        "parameter": "angular.ssr",
+        "equals": true
+      }
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/src/app/app.routes.server.ts",
+      "template": "templates/application/src/app/app.routes.server.ts.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      },
+      "when": {
+        "parameter": "angular.ssr",
+        "equals": true
+      }
+    },
+    {
+      "path": "{frontend.libsRoot}/{angular.libraryName}/package.json",
+      "template": "templates/library/package.json.tmpl",
+      "forEach": {
+        "parameter": "angular.libraryNames",
+        "as": "angular.libraryName"
+      }
+    },
+    {
+      "path": "{frontend.libsRoot}/{angular.libraryName}/ng-package.json",
+      "template": "templates/library/ng-package.json.tmpl",
+      "forEach": {
+        "parameter": "angular.libraryNames",
+        "as": "angular.libraryName"
+      }
+    },
+    {
+      "path": "{frontend.libsRoot}/{angular.libraryName}/tsconfig.lib.json",
+      "template": "templates/library/tsconfig.lib.json.tmpl",
+      "forEach": {
+        "parameter": "angular.libraryNames",
+        "as": "angular.libraryName"
+      }
+    },
+    {
+      "path": "{frontend.libsRoot}/{angular.libraryName}/tsconfig.lib.prod.json",
+      "template": "templates/library/tsconfig.lib.prod.json.tmpl",
+      "forEach": {
+        "parameter": "angular.libraryNames",
+        "as": "angular.libraryName"
+      }
+    },
+    {
+      "path": "{frontend.libsRoot}/{angular.libraryName}/src/public-api.ts",
+      "template": "templates/library/src/public-api.ts.tmpl",
+      "forEach": {
+        "parameter": "angular.libraryNames",
+        "as": "angular.libraryName"
+      }
+    }
+  ],
+  "assemblies": [
+    {
+      "target": "{frontend.root}/angular.json",
+      "template": "templates/angular.json.tmpl",
+      "format": "json",
+      "slots": {
+        "workspace-base": {
+          "type": "json",
+          "placement": "root"
+        },
+        "projects": {
+          "type": "json",
+          "placement": "property"
+        }
+      }
+    },
+    {
+      "target": "{frontend.root}/package.json",
+      "template": "templates/package.json.tmpl",
+      "format": "json",
+      "slots": {
+        "dependencies": {
+          "type": "json",
+          "placement": "property"
+        },
+        "devDependencies": {
+          "type": "json",
+          "placement": "property"
+        },
+        "scripts": {
+          "type": "json",
+          "placement": "property"
+        }
+      }
+    },
+    {
+      "target": ".agents/{frontend.scopeName}/memory/rules.md",
+      "template": "templates/agents/memory-rules.md.tmpl",
+      "format": "markdown",
+      "slots": {
+        "framework": {
+          "type": "markdown"
+        }
+      }
+    },
+    {
+      "target": ".agents/{frontend.scopeName}/hooks/workflow.md",
+      "template": "templates/agents/workflow.md.tmpl",
+      "format": "markdown",
+      "slots": {
+        "framework": {
+          "type": "markdown"
+        }
+      }
+    }
+  ],
+  "contributes": [
+    {
+      "target": "{frontend.root}/angular.json",
+      "slot": "workspace-base",
+      "key": "stack.angular:workspace-base",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/angular-workspace-base.json.tmpl"
+      }
+    },
+    {
+      "target": "{frontend.root}/angular.json",
+      "slot": "projects",
+      "key": "stack.angular:projects",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/angular-projects.browser.json.tmpl"
+      },
+      "when": {
+        "parameter": "angular.ssr",
+        "equals": false
+      }
+    },
+    {
+      "target": "{frontend.root}/angular.json",
+      "slot": "projects",
+      "key": "stack.angular:projects",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/angular-projects.ssr.json.tmpl"
+      },
+      "when": {
+        "parameter": "angular.ssr",
+        "equals": true
+      }
+    },
+    {
+      "target": "{frontend.root}/angular.json",
+      "slot": "projects",
+      "key": "stack.angular:library-projects",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/angular-library-projects.json.tmpl"
+      }
+    },
+    {
+      "target": "{frontend.root}/package.json",
+      "slot": "dependencies",
+      "key": "stack.angular:dependencies",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/dependencies.json.tmpl"
+      }
+    },
+    {
+      "target": "{frontend.root}/package.json",
+      "slot": "dependencies",
+      "key": "stack.angular:router-dependency",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/router-dependency.json.tmpl"
+      },
+      "when": {
+        "parameter": "angular.routingMode",
+        "equals": "enabled"
+      }
+    },
+    {
+      "target": "{frontend.root}/package.json",
+      "slot": "dependencies",
+      "key": "stack.angular:ssr-dependencies",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/ssr-dependencies.json.tmpl"
+      },
+      "when": {
+        "parameter": "angular.ssr",
+        "equals": true
+      }
+    },
+    {
+      "target": "{frontend.root}/package.json",
+      "slot": "devDependencies",
+      "key": "stack.angular:dev-dependencies",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/dev-dependencies.json.tmpl"
+      }
+    },
+    {
+      "target": "{frontend.root}/package.json",
+      "slot": "devDependencies",
+      "key": "stack.angular:ssr-dev-dependencies",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/ssr-dev-dependencies.json"
+      },
+      "when": {
+        "parameter": "angular.ssr",
+        "equals": true
+      }
+    },
+    {
+      "target": "{frontend.root}/package.json",
+      "slot": "devDependencies",
+      "key": "stack.angular:less-dependency",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/less-dependency.json"
+      },
+      "when": {
+        "parameter": "angular.styleMode",
+        "equals": "less"
+      }
+    },
+    {
+      "target": "{frontend.root}/package.json",
+      "slot": "scripts",
+      "key": "stack.angular:scripts",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/scripts.json.tmpl"
+      }
+    },
+    {
+      "target": "{frontend.root}/package.json",
+      "slot": "scripts",
+      "key": "stack.angular:ssr-scripts",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/ssr-scripts.json.tmpl"
+      },
+      "when": {
+        "parameter": "angular.ssr",
+        "equals": true
+      }
+    },
+    {
+      "target": ".agents/{frontend.scopeName}/memory/rules.md",
+      "slot": "framework",
+      "key": "stack.angular:scope-rules",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/scope-rules.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/{frontend.scopeName}/hooks/workflow.md",
+      "slot": "framework",
+      "key": "stack.angular:workflow",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/workflow.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/shared/commands.md",
+      "slot": "frontend",
+      "key": "stack.angular:commands",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/commands.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/shared/validation.md",
+      "slot": "frontend",
+      "key": "stack.angular:validation",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/validation.md.tmpl"
+      }
+    }
+  ],
+  "parameters": {
+    "angular.applicationNames": {
+      "type": "array",
+      "required": true,
+      "default": [
+        "app"
+      ],
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "description": "Ordered non-empty application names rendered beneath frontend.appsRoot."
+    },
+    "angular.defaultApplication": {
+      "type": "string",
+      "required": true,
+      "default": "app",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "memberOf": "angular.applicationNames",
+      "description": "Application used by the short dev and build script aliases."
+    },
+    "angular.versionPolicy": {
+      "type": "string",
+      "required": true,
+      "default": "^22.0.0",
+      "pattern": "^(?:\\^|~)?22\\.[0-9]+\\.[0-9]+$",
+      "description": "Angular 22 compatible-major package range shared by framework and build packages."
+    },
+    "angular.styleMode": {
+      "type": "string",
+      "required": true,
+      "default": "css",
+      "enum": [
+        "css",
+        "scss",
+        "sass",
+        "less"
+      ],
+      "description": "Stylesheet extension and Angular inline-style language."
+    },
+    "angular.routingMode": {
+      "type": "string",
+      "required": true,
+      "default": "enabled",
+      "enum": [
+        "enabled",
+        "disabled"
+      ],
+      "description": "Whether application routing files and providers are rendered."
+    },
+    "angular.ssr": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether Angular server rendering shells and dependencies are rendered."
+    },
+    "angular.libraryNames": {
+      "type": "array",
+      "required": true,
+      "default": [],
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "description": "Ordered Angular library package names rendered beneath frontend.libsRoot."
+    }
+  },
+  "emits": [
+    {
+      "name": "angular-developer",
+      "source": "emissions/angular-developer",
+      "destination": ".agents/skills/angular-developer",
+      "adopt": true,
+      "migrations": []
+    },
+    {
+      "name": "angular-new-app",
+      "source": "emissions/angular-new-app",
+      "destination": ".agents/skills/angular-new-app",
+      "adopt": true,
+      "migrations": []
+    }
+  ]
+}

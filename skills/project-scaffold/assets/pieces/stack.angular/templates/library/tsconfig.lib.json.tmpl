@@ -1,0 +1,16 @@
+{
+  "extends": "{{relativePath frontend.libsRoot/this frontend.root/tsconfig.json}}",
+  "compilerOptions": {
+    "outDir": "{{relativePath frontend.libsRoot/this frontend.root/out-tsc/lib/this}}",
+    "declaration": true,
+    "declarationMap": true,
+    "inlineSources": true,
+    "types": []
+  },
+  "exclude": [
+    "src/**/*.spec.ts"
+  ],
+  "include": [
+    "src/**/*.ts"
+  ]
+}

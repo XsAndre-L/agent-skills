@@ -1,0 +1,22 @@
+Use this index to find durable project documentation. Agent routing files
+should link here instead of copying maintained architecture, operational, or
+development guidance.
+
+## Categories
+
+{{#each docs.categories as docs.category}}- [{{docs.category}}](/{{docs.root}}/{{docs.category}}/README.md)
+{{/each}}
+
+## Category boundaries
+
+When configured:
+
+- architecture contains durable system structure and accepted decisions;
+- development contains repository setup and contributor guidance;
+- operations contains actionable runbooks and recovery procedures;
+- release or releases contains release-specific material supplied by a
+  release piece;
+- archive contains superseded material that retains historical value.
+
+Additional categories must define one clear purpose in their category index.
+Decision records live under /{{docs.root}}/{docs.decisionRecordLocation}/.

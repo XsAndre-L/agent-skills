@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 2,
+  "ownedBy": "core.agents",
+  "profiles": {
+    "agents-minimal": {
+      "description": "Install only the mandatory repository agent-governance foundation.",
+      "extends": [],
+      "pieces": [
+        "core.agents"
+      ],
+      "pieceOrders": [],
+      "excludeKinds": [
+        "release",
+        "delivery"
+      ]
+    },
+    "angular-nest-graphql-postgres": {
+      "description": "Reserved composition contract for foundation pieces 01-08 and delivery-neutral pieces 13-17; unavailable until every selected order exists.",
+      "extends": [
+        "agents-minimal"
+      ],
+      "pieces": [],
+      "pieceOrders": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "excludeKinds": [
+        "release",
+        "delivery"
+      ]
+    },
+    "tauri-desktop-fullstack": {
+      "description": "Reserved composition contract extending angular-nest-graphql-postgres with desktop pieces 09, 11, and 12.",
+      "extends": [
+        "angular-nest-graphql-postgres"
+      ],
+      "pieces": [],
+      "pieceOrders": [
+        9,
+        11,
+        12
+      ],
+      "excludeKinds": [
+        "release",
+        "delivery"
+      ]
+    },
+    "tauri-mobile-fullstack": {
+      "description": "Reserved composition contract extending tauri-desktop-fullstack with mobile piece 10.",
+      "extends": [
+        "tauri-desktop-fullstack"
+      ],
+      "pieces": [],
+      "pieceOrders": [
+        10
+      ],
+      "excludeKinds": [
+        "release",
+        "delivery"
+      ]
+    }
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 2,
+  "id": "structure.docs",
+  "version": "1.1.0",
+  "kind": "structure",
+  "required": false,
+  "order": 4,
+  "provides": [
+    "structure.docs",
+    "documentation-structure"
+  ],
+  "requires": [
+    "core.agents"
+  ],
+  "suggests": [],
+  "conflicts": [],
+  "owns": [
+    {
+      "path": "{docs.root}/{docs.category}/README.md",
+      "template": "templates/category-README.md.tmpl",
+      "forEach": {
+        "parameter": "docs.categories",
+        "as": "docs.category"
+      }
+    },
+    {
+      "path": "{docs.root}/{docs.decisionRecordLocation}/TEMPLATE.md",
+      "template": "templates/decision-record.md.tmpl"
+    },
+    {
+      "path": "{docs.root}/{docs.documentTemplatePath}",
+      "template": "templates/document.md.tmpl"
+    }
+  ],
+  "assemblies": [
+    {
+      "target": "{docs.root}/README.md",
+      "template": "templates/root-README.md.tmpl",
+      "format": "markdown",
+      "slots": {
+        "base": {
+          "type": "markdown"
+        },
+        "release": {
+          "type": "markdown"
+        }
+      }
+    }
+  ],
+  "contributes": [
+    {
+      "target": "{docs.root}/README.md",
+      "slot": "base",
+      "key": "structure.docs:index-base",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/root-index.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/AGENTS.md",
+      "slot": "docs-routing",
+      "key": "structure.docs:routing",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/routing.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/README.md",
+      "slot": "documentation-layout",
+      "key": "structure.docs:agent-index",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/agent-index.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/shared/project.md",
+      "slot": "documentation",
+      "key": "structure.docs:project",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/project.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/shared/validation.md",
+      "slot": "documentation",
+      "key": "structure.docs:validation",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/validation.md.tmpl"
+      }
+    }
+  ],
+  "parameters": {
+    "docs.root": {
+      "type": "string",
+      "required": true,
+      "default": "docs",
+      "description": "Normalized target-relative documentation root."
+    },
+    "docs.categories": {
+      "type": "array",
+      "required": true,
+      "default": [
+        "architecture",
+        "development",
+        "operations",
+        "archive"
+      ],
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "description": "Ordered unique safe single-directory category names."
+    },
+    "docs.ownerLabel": {
+      "type": "string",
+      "required": true,
+      "default": "documentation-maintainer",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Owner label shown in generated documentation guidance."
+    },
+    "docs.reviewerLabel": {
+      "type": "string",
+      "required": true,
+      "default": "documentation-reviewer",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Reviewer label shown in generated documentation guidance."
+    },
+    "docs.decisionRecordLocation": {
+      "type": "string",
+      "required": true,
+      "default": "architecture/decisions",
+      "pattern": "^(?!/)(?!.*\\.\\.)[A-Za-z0-9._/-]+$",
+      "description": "Documentation-root-relative directory for decision records."
+    },
+    "docs.documentTemplatePath": {
+      "type": "string",
+      "required": true,
+      "default": "_templates/document.md",
+      "pattern": "^(?!/)(?!.*\\.\\.)[A-Za-z0-9._/-]+$",
+      "description": "Documentation-root-relative exact path for the general document template."
+    },
+    "docs.archivePolicy": {
+      "type": "string",
+      "enum": [
+        "retain-with-status",
+        "move-with-redirect",
+        "external-archive"
+      ],
+      "default": "retain-with-status",
+      "description": "Policy label governing superseded documentation."
+    },
+    "docs.sourceLinkConvention": {
+      "type": "string",
+      "enum": [
+        "repository-root-relative",
+        "document-relative",
+        "none"
+      ],
+      "default": "repository-root-relative",
+      "description": "Optional convention for links from documentation to source files."
+    }
+  },
+  "emits": []
+}

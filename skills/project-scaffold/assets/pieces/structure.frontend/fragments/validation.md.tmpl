@@ -1,0 +1,12 @@
+## Frontend structure
+
+- Require `{{frontend.root}}`, `{{frontend.appsRoot}}`, and
+  `{{frontend.libsRoot}}` to be normalized target-relative paths without
+  absolute roots, traversal, or unresolved values.
+- Require the application and library roots to be distinct strict descendants
+  of the frontend root and reject duplicate or frontend/backend collisions.
+- Require `{{frontend.scopeName}}` to be one safe path segment.
+- Keep maintained applications, reusable libraries, generated artifacts, and
+  platform adapters in explicit non-overlapping boundaries.
+- A workspace provider is optional; the resolved frontend paths remain valid
+  when selected independently.

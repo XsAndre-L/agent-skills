@@ -1,0 +1,10 @@
+## Backend structure
+
+- Boundary root: `{{backend.root}}`
+- Application root: `{{backend.appsRoot}}`
+- Library root: `{{backend.libsRoot}}`
+- Ownership scope: `{{backend.scopeName}}`
+
+Applications and reusable libraries are separate ownership boundaries.
+Framework, transport, persistence, and deployment providers may add exact
+descendants without changing these stable roots.

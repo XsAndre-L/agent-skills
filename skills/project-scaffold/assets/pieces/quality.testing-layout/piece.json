@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 2,
+  "id": "quality.testing-layout",
+  "version": "1.1.0",
+  "kind": "structure",
+  "required": false,
+  "order": 3,
+  "provides": [
+    "quality.testing-layout",
+    "testing-layout"
+  ],
+  "requires": [
+    "core.agents"
+  ],
+  "suggests": [],
+  "conflicts": [],
+  "owns": [],
+  "assemblies": [],
+  "contributes": [
+    {
+      "target": ".agents/shared/testing-layout.md",
+      "slot": "base",
+      "key": "quality.testing-layout:layout",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/layout.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/AGENTS.md",
+      "slot": "conditional-reads",
+      "key": "quality.testing-layout:routing",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/routing.md"
+      }
+    },
+    {
+      "target": ".agents/shared/validation.md",
+      "slot": "testing",
+      "key": "quality.testing-layout:validation",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/validation.md.tmpl"
+      }
+    }
+  ],
+  "parameters": {
+    "testing.frontendUnitRoot": {
+      "type": "string",
+      "required": true,
+      "default": "frontend/apps",
+      "pathDisjointFrom": [
+        "testing.frontendIntegrationRoot"
+      ],
+      "description": "Normalized target-relative application boundary beneath which frontend unit tests may be colocated."
+    },
+    "testing.frontendIntegrationRoot": {
+      "type": "string",
+      "required": true,
+      "default": "frontend/test/integration",
+      "pathDisjointFrom": [
+        "testing.frontendUnitRoot"
+      ],
+      "description": "Normalized target-relative root for frontend integration tests."
+    },
+    "testing.backendUnitRoot": {
+      "type": "string",
+      "required": true,
+      "default": "backend/apps",
+      "pathDisjointFrom": [
+        "testing.backendIntegrationRoot",
+        "testing.backendMigrationRoot"
+      ],
+      "description": "Normalized target-relative application boundary beneath which backend unit and spec files may be colocated."
+    },
+    "testing.backendIntegrationRoot": {
+      "type": "string",
+      "required": true,
+      "default": "backend/test/integration",
+      "pathDisjointFrom": [
+        "testing.backendMigrationRoot",
+        "testing.backendUnitRoot"
+      ],
+      "description": "Normalized target-relative root for backend integration tests."
+    },
+    "testing.backendMigrationRoot": {
+      "type": "string",
+      "required": true,
+      "default": "backend/test/migrations",
+      "pathDisjointFrom": [
+        "testing.backendIntegrationRoot",
+        "testing.backendUnitRoot"
+      ],
+      "description": "Normalized target-relative root for centralized migration tests; application-local migration specs may remain colocated beneath an application source root."
+    },
+    "testing.e2eRoot": {
+      "type": "string",
+      "required": true,
+      "default": "test/e2e",
+      "pathDisjointFrom": [
+        "testing.fixtureRoot",
+        "testing.generatedAssetRoot"
+      ],
+      "description": "Normalized target-relative root for end-to-end tests."
+    },
+    "testing.unitSuffix": {
+      "type": "string",
+      "required": true,
+      "default": ".spec.ts",
+      "pattern": "^\\.[a-z0-9.-]+$",
+      "distinctFrom": [
+        "testing.e2eSuffix",
+        "testing.integrationSuffix"
+      ],
+      "description": "Filename suffix for unit and migration specifications."
+    },
+    "testing.integrationSuffix": {
+      "type": "string",
+      "required": true,
+      "default": ".integration.spec.ts",
+      "pattern": "^\\.[a-z0-9.-]+$",
+      "distinctFrom": [
+        "testing.e2eSuffix",
+        "testing.unitSuffix"
+      ],
+      "description": "Filename suffix for integration specifications."
+    },
+    "testing.e2eSuffix": {
+      "type": "string",
+      "required": true,
+      "default": ".e2e.spec.ts",
+      "pattern": "^\\.[a-z0-9.-]+$",
+      "distinctFrom": [
+        "testing.integrationSuffix",
+        "testing.unitSuffix"
+      ],
+      "description": "Filename suffix for end-to-end specifications."
+    },
+    "testing.fixtureRoot": {
+      "type": "string",
+      "required": true,
+      "default": "test/fixtures",
+      "pathDisjointFrom": [
+        "testing.e2eRoot",
+        "testing.generatedAssetRoot"
+      ],
+      "description": "Normalized target-relative root for hand-maintained fixtures."
+    },
+    "testing.generatedAssetRoot": {
+      "type": "string",
+      "required": true,
+      "default": "test/generated",
+      "pathDisjointFrom": [
+        "testing.e2eRoot",
+        "testing.fixtureRoot"
+      ],
+      "description": "Normalized target-relative root for generated test assets."
+    },
+    "testing.colocated": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether unit specs may be colocated with the source they verify."
+    }
+  },
+  "emits": []
+}

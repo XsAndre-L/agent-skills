@@ -1,0 +1,15 @@
+## Testing layout
+
+- Normalize every configured root as a target-relative path; reject absolute
+  paths, traversal, empty values, and unresolved placeholders.
+- Reject incompatible duplicate or ancestor-overlapping configured roots.
+  Application-local migration specs may instead be colocated beneath an
+  application source boundary without changing the configured migration root.
+- Keep {{testing.unitSuffix}}, {{testing.integrationSuffix}}, and
+  {{testing.e2eSuffix}} distinct so categories cannot resolve to the same name.
+- Keep fixtures at {{testing.fixtureRoot}} and generated assets at
+  {{testing.generatedAssetRoot}} outside application source roots.
+- Validate only stack roots present in the composition. Frontend-only,
+  backend-only, desktop, mobile, and full-stack selections remain valid without
+  requiring an unrelated structure provider.
+- Leave framework-owned test configuration and source ownership unchanged.

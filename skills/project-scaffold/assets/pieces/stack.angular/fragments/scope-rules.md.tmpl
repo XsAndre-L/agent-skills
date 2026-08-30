@@ -1,0 +1,12 @@
+## Angular workspace boundary
+
+- This is an Angular 22 standalone, strict, zoneless workspace using the 2025 filename style.
+- The Angular workspace root is `{frontend.root}`. It must not contain a root `src/` application.
+- Applications are ordered as `{angular.applicationNames}` and live only under `{frontend.appsRoot}/<application>/`.
+- Reusable Angular libraries are ordered as `{angular.libraryNames}` and live only under `{frontend.libsRoot}/<library>/`.
+- Keep application features and platform adapters inside their owning application. Move code into a library only when it has a real reusable package boundary.
+- Keep shared UI and framework-neutral utilities in libraries; do not make one application import another application's source.
+- Treat generated artifacts and `dist/` as outputs, never source ownership.
+- The frontend `package.json`, `angular.json`, and TypeScript configurations are assembled configuration boundaries. Add stack-specific fields through their owning puzzle pieces.
+- Routing is `{angular.routingMode}`, SSR is `{angular.ssr}`, and component styles use `{angular.styleMode}`.
+- No test runner is selected here. Test framework and placement behavior belong to separate capabilities.

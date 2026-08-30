@@ -1,0 +1,18 @@
+## Bun workspace validation
+
+Before installation or delegated validation:
+
+- confirm the root package name and every child package name are valid and
+  unique;
+- confirm `{{frontend.root}}`, `{{backend.root}}`, and
+  `{{workspace.sharedPackageRoots}}` are normalized, target-relative, and
+  non-overlapping;
+- reject duplicate workspace entries, unresolved placeholders, and ownership
+  collisions;
+- confirm each materialized workspace entry contains its own `package.json`;
+- use `bun install --frozen-lockfile` when a committed `bun.lock` already
+  exists, then invoke only the package-local checks relevant to the change.
+
+Absence of a frontend or backend structure provider is not itself a failure.
+The configured paths must still be coherent and remain owned by whichever
+later piece creates them.

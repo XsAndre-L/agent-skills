@@ -1,0 +1,9 @@
+{
+  "ng": "ng",
+  "dev": "bun run dev:{{angular.defaultApplication}}",
+  "build": "bun run build:{{angular.defaultApplication}}",
+  {{#each angular.applicationNames as this separator=","}}
+  "dev:{{this}}": "ng serve {{this}}",
+  "build:{{this}}": "ng build {{this}}"
+  {{/each}}
+}
