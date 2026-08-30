@@ -43,11 +43,17 @@ describe("foundation blockers and Bun workspace integration", () => {
     const merged = mergeJsonAssemblySlots(
       {},
       {
-        scripts: { verify: "bun run --workspaces --if-present verify" },
+        scripts: {
+          fragment: { verify: "bun run --workspaces --if-present verify" },
+          placement: "property",
+        },
         "root-object": {
-          name: "workspace-root",
-          private: true,
-          workspaces: ["frontend", "backend", "packages/*"],
+          fragment: {
+            name: "workspace-root",
+            private: true,
+            workspaces: ["frontend", "backend", "packages/*"],
+          },
+          placement: "root",
         },
       },
       (message) => new Error(message),
@@ -62,10 +68,15 @@ describe("foundation blockers and Bun workspace integration", () => {
     expect(() =>
       mergeJsonAssemblySlots(
         { scripts: {} },
-        { scripts: { build: "bun run --workspaces --if-present build" } },
+        {
+          scripts: {
+            fragment: { build: "bun run --workspaces --if-present build" },
+            placement: "property",
+          },
+        },
         (message) => new Error(message),
       ),
-    ).toThrow("JSON assembly slot collision: scripts");
+    ).toThrow("JSON assembly property collision: scripts");
   });
 
   test("resolves the foundation capability and applies the workspace piece", () => {

@@ -1,0 +1,12 @@
+node_modules/
+dist/
+build/
+coverage/
+.angular/
+**/.generated/
+**/generated/
+**/__generated__/
+**/*.generated.*
+**/*.d.ts
+.agents/skills/
+.project-scaffold.lock.json

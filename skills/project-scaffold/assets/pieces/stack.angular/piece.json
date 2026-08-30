@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "id": "stack.angular",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "kind": "capability",
   "required": false,
   "order": 7,
@@ -12,7 +12,8 @@
   "requires": [
     "core.agents",
     "structure.frontend",
-    "workspace.bun-monorepo"
+    "workspace.bun-monorepo",
+    "stack.webquark"
   ],
   "suggests": [],
   "conflicts": [],
@@ -27,6 +28,22 @@
       "forEach": {
         "parameter": "angular.applicationNames",
         "as": "angular.applicationName"
+      },
+      "when": {
+        "parameter": "webquark.integrationEnabled",
+        "equals": false
+      }
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/src/main.ts",
+      "template": "templates/application/src/main.webquark.ts.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      },
+      "when": {
+        "parameter": "webquark.integrationEnabled",
+        "equals": true
       }
     },
     {
@@ -43,6 +60,22 @@
       "forEach": {
         "parameter": "angular.applicationNames",
         "as": "angular.applicationName"
+      },
+      "when": {
+        "parameter": "webquark.integrationEnabled",
+        "equals": false
+      }
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/src/styles.{angular.styleMode}",
+      "template": "templates/application/src/styles.webquark.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      },
+      "when": {
+        "parameter": "webquark.integrationEnabled",
+        "equals": true
       }
     },
     {
@@ -51,6 +84,22 @@
       "forEach": {
         "parameter": "angular.applicationNames",
         "as": "angular.applicationName"
+      },
+      "when": {
+        "parameter": "webquark.integrationEnabled",
+        "equals": false
+      }
+    },
+    {
+      "path": "{frontend.appsRoot}/{angular.applicationName}/src/app/app.ts",
+      "template": "templates/application/src/app/app.webquark.ts.tmpl",
+      "forEach": {
+        "parameter": "angular.applicationNames",
+        "as": "angular.applicationName"
+      },
+      "when": {
+        "parameter": "webquark.integrationEnabled",
+        "equals": true
       }
     },
     {
@@ -227,9 +276,10 @@
           "type": "json",
           "placement": "property"
         },
-        "devDependencies": {
+        "dev-dependencies": {
           "type": "json",
-          "placement": "property"
+          "placement": "property",
+          "property": "devDependencies"
         },
         "scripts": {
           "type": "json",
@@ -340,7 +390,7 @@
     },
     {
       "target": "{frontend.root}/package.json",
-      "slot": "devDependencies",
+      "slot": "dev-dependencies",
       "key": "stack.angular:dev-dependencies",
       "fragment": {
         "type": "json",
@@ -349,7 +399,7 @@
     },
     {
       "target": "{frontend.root}/package.json",
-      "slot": "devDependencies",
+      "slot": "dev-dependencies",
       "key": "stack.angular:ssr-dev-dependencies",
       "fragment": {
         "type": "json",
@@ -362,7 +412,7 @@
     },
     {
       "target": "{frontend.root}/package.json",
-      "slot": "devDependencies",
+      "slot": "dev-dependencies",
       "key": "stack.angular:less-dependency",
       "fragment": {
         "type": "json",

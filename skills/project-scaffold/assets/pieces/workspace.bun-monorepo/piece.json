@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "id": "workspace.bun-monorepo",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "kind": "structure",
   "required": false,
   "order": 2,
@@ -30,6 +30,11 @@
         "root-object": {
           "type": "json",
           "placement": "root"
+        },
+        "dev-dependencies": {
+          "type": "json",
+          "placement": "property",
+          "property": "devDependencies"
         },
         "scripts": {
           "type": "json",

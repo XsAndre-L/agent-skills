@@ -29,7 +29,7 @@ import {
 
 const SKILL_ROOT = resolve(import.meta.dir, "..");
 const SKILL_NAME = "project-scaffold";
-const SKILL_VERSION = "0.10.0";
+const SKILL_VERSION = "0.12.0";
 const PIECES_ROOT = resolve(SKILL_ROOT, "assets", "pieces");
 const PROFILES_PATH = resolve(SKILL_ROOT, "references", "profiles.json");
 const CORE_AGENTS_ID = "core.agents";

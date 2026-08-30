@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 2,
+  "id": "stack.webquark",
+  "version": "1.0.0",
+  "kind": "capability",
+  "required": false,
+  "order": 21,
+  "provides": [
+    "stack.webquark",
+    "webquark-ui-foundation",
+    "webquark-component-catalogue"
+  ],
+  "requires": [
+    "core.agents",
+    "structure.frontend",
+    "workspace.bun-monorepo"
+  ],
+  "suggests": [],
+  "conflicts": [],
+  "owns": [
+    {
+      "path": "{webquark.foundationRoot}/README.md",
+      "template": "templates/README.md.tmpl"
+    },
+    {
+      "path": "{webquark.foundationRoot}/styles/foundation.css",
+      "template": "templates/styles/foundation.css"
+    },
+    {
+      "path": "{webquark.foundationRoot}/styles/webquark-theme.css",
+      "template": "templates/styles/webquark-theme.css"
+    },
+    {
+      "path": "{webquark.foundationRoot}/src/setup-webquark.ts",
+      "template": "templates/src/setup-webquark.ts.tmpl",
+      "when": {
+        "parameter": "webquark.integrationEnabled",
+        "equals": true
+      }
+    },
+    {
+      "path": ".agents/shared/webquark.md",
+      "template": "templates/agents/shared-webquark.md.tmpl"
+    }
+  ],
+  "assemblies": [],
+  "contributes": [
+    {
+      "target": "{frontend.root}/package.json",
+      "slot": "dependencies",
+      "key": "stack.webquark:core-dependency",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/dependencies.json.tmpl"
+      },
+      "when": {
+        "parameter": "webquark.integrationEnabled",
+        "equals": true
+      }
+    },
+    {
+      "target": ".agents/AGENTS.md",
+      "slot": "conditional-reads",
+      "key": "stack.webquark:routing",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/routing.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/README.md",
+      "slot": "knowledge.layout",
+      "key": "stack.webquark:agent-index",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/agent-index.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/shared/project.md",
+      "slot": "project.architecture",
+      "key": "stack.webquark:project",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/project.md.tmpl"
+      }
+    },
+    {
+      "target": ".agents/shared/validation.md",
+      "slot": "frontend",
+      "key": "stack.webquark:validation",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/validation.md.tmpl"
+      }
+    }
+  ],
+  "parameters": {
+    "webquark.foundationRoot": {
+      "type": "string",
+      "required": true,
+      "default": "frontend/libs/shared/ui-foundation",
+      "pattern": "^frontend/libs/shared/ui-foundation$",
+      "nestedUnder": "frontend.libsRoot",
+      "description": "Fixed application-owned WebQuark integration boundary shared by every frontend application."
+    },
+    "webquark.integrationEnabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the exact WebQuark dependency, browser loader, and Angular application connection are active."
+    },
+    "webquark.coreVersion": {
+      "type": "string",
+      "required": true,
+      "default": "1.0.2",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$",
+      "description": "Exact non-floating @webquark/core version used when integration is enabled."
+    }
+  },
+  "emits": []
+}

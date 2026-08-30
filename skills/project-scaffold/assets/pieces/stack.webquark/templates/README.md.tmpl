@@ -1,0 +1,39 @@
+# Shared UI foundation
+
+This library is the one application-owned integration boundary for WebQuark.
+Every frontend application reuses it instead of creating its own WebQuark
+loader, theme, or global overrides.
+
+Integration enabled: `{webquark.integrationEnabled}`.
+
+## Stable layout
+
+- `styles/foundation.css` loads WebQuark base CSS before the application token layer.
+- `styles/webquark-theme.css` is the only location for application-wide `--q-*` overrides.
+- `src/setup-webquark.ts` exists only when integration is enabled and owns browser loader setup.
+- Application layout styles stay application-owned and load after this foundation.
+- Reusable wrappers or Shadow Part exceptions belong below this shared library only when they add reusable project meaning or behavior. Do not create them pre-emptively.
+
+Prefer global theme tokens for application-wide changes. Use documented Shadow
+Parts only for isolated exceptions; never target private shadow DOM or internal
+classes.
+
+## Reuse before replacing
+
+Check this catalogue before creating a new UI primitive. For compact desktop
+interfaces, use `size="sm"` when the selected component's public API exposes a
+size option.
+
+- Actions: `q-button`, `q-chip`, `q-link`
+- Layout and navigation: `q-card`, `q-carousel`, `q-form`, `q-navbar`, `q-panel`, `q-scrollable`, `q-sidepanel`, `q-toolbar`
+- Forms: `q-input`, `q-textarea`, `q-dropdown`, `q-quantity-selector`, `q-radio-group`, `q-toggle`
+- Data and indicators: `q-conversation-bubble`, `q-data-table`, `q-map`, `q-syntax-box`, `q-circular-progress`, `q-step-diagram`, `q-step-diagram-item`
+- Media: `q-avatar`, `q-icon`, `q-reel`, `q-thumbnail`
+- Overlays: `q-dialog`, `q-toast`, `q-tooltip`
+
+For behavior and API details, consult WebQuark's `docs/components/README.md`,
+the matching `docs/components/q-*.md` guide, generated
+`src/components/**/readme.md`, `docs/theme_variables.md`, and the installed
+`@webquark/core` TypeScript declarations. Generated API and declarations win
+when prose and the installed version disagree. The canonical source is
+<https://github.com/Purely-IT/WebQuark>.

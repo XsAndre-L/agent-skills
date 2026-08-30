@@ -8,6 +8,11 @@ For this repository, this scoped workflow overrides the emitted
 defaults. Use the Bun empty-workspace sequence below so no root `src/`
 application is created.
 
+WebQuark integration is `{webquark.integrationEnabled}`. When enabled, keep
+loader setup and application-wide token overrides in the shared UI foundation
+described by `.agents/shared/webquark.md`; do not create application-local
+copies.
+
 For a manual recreation, start from the repository root with an empty Angular
 workspace so Angular never creates `{frontend.root}/src`:
 

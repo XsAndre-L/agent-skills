@@ -47,9 +47,7 @@ describe("project scaffold Bun CLI", () => {
       "--root",
       project,
       "--profile",
-      "agents-standard",
-      "--scope",
-      "backend",
+      "agents-minimal",
       "--project-name",
       "Parity Project",
       "--json",
@@ -57,43 +55,50 @@ describe("project scaffold Bun CLI", () => {
 
     const plan = run(SCAFFOLD, ["plan", ...common]);
     expect(plan.exitCode).toBe(0);
-    expect(JSON.parse(plan.stdout).counts).toEqual({
-      conflict: 0,
-      create: 19,
-      unchanged: 0,
-      update: 0,
-    });
+    expect(JSON.parse(plan.stdout).files).toHaveLength(9);
+    expect(
+      JSON.parse(plan.stdout).files.every(
+        (file: { status: string }) => file.status === "create",
+      ),
+    ).toBe(true);
     expect(existsSync(project)).toBe(false);
 
     const apply = run(SCAFFOLD, ["apply", ...common]);
     expect(apply.exitCode).toBe(0);
-    expect(JSON.parse(apply.stdout).counts.create).toBe(19);
+    expect(JSON.parse(apply.stdout).files).toHaveLength(9);
     const lockPath = join(project, ".project-scaffold.lock.json");
     const firstLock = readFileSync(lockPath);
 
     const secondApply = run(SCAFFOLD, ["apply", ...common]);
     expect(secondApply.exitCode).toBe(0);
-    expect(JSON.parse(secondApply.stdout).counts.unchanged).toBe(19);
+    expect(
+      JSON.parse(secondApply.stdout).files.every(
+        (file: { status: string }) => file.status === "unchanged",
+      ),
+    ).toBe(true);
     expect(readFileSync(lockPath)).toEqual(firstLock);
 
     const nativeReapply = run(SCAFFOLD, ["apply", ...common.slice(0, -1)]);
     expect(nativeReapply.exitCode).toBe(0);
-    expect(nativeReapply.stdout).toContain("lock unchanged:");
+    expect(nativeReapply.stdout).toContain("Applied profile agents-minimal");
+    expect(nativeReapply.stdout).toContain("unchanged AGENTS.md");
 
     const validation = run(VALIDATE, ["--root", project, "--json"]);
     expect(validation.exitCode).toBe(0);
-    expect(JSON.parse(validation.stdout).counts.ok).toBe(19);
+    expect(JSON.parse(validation.stdout).counts.ok).toBe(9);
   });
 
   test("protects a user-modified generated file", () => {
     const project = join(temporaryRoot("conflict"), "project");
-    const common = ["--root", project, "--scope", "frontend", "--json"];
+    const common = ["--root", project, "--profile", "agents-minimal", "--json"];
     expect(run(SCAFFOLD, ["apply", ...common]).exitCode).toBe(0);
 
     appendFileSync(join(project, ".agents", "shared", "commands.md"), "user change\n");
     const apply = run(SCAFFOLD, ["apply", ...common]);
-    expect(apply.exitCode).toBe(2);
-    expect(JSON.parse(apply.stdout).counts.conflict).toBe(1);
+    expect(apply.exitCode).not.toBe(0);
+    expect(apply.stderr).toContain(
+      "Owned output has unmanaged changes: .agents/shared/commands.md",
+    );
 
     const validation = run(VALIDATE, ["--root", project, "--json"]);
     expect(validation.exitCode).toBe(1);
@@ -106,20 +111,24 @@ describe("project scaffold Bun CLI", () => {
       "plan",
       "--root",
       project,
+      "--profile",
+      "agents-minimal",
       "--scope",
       "shared",
     ]);
-    expect(reserved.exitCode).toBe(2);
-    expect(reserved.stderr).toContain("is reserved by the .agents layout");
+    expect(reserved.exitCode).not.toBe(0);
+    expect(reserved.stderr).toContain("Reserved scope: shared");
     const windowsDevice = run(SCAFFOLD, [
       "plan",
       "--root",
       project,
+      "--profile",
+      "agents-minimal",
       "--scope",
       "con",
     ]);
-    expect(windowsDevice.exitCode).toBe(2);
-    expect(windowsDevice.stderr).toContain("reserved Windows device name");
+    expect(windowsDevice.exitCode).not.toBe(0);
+    expect(windowsDevice.stderr).toContain("Reserved scope: con");
     expect(() =>
       safeChild(project, "../escape", "output", (message) => new Error(message)),
     ).toThrow("Unsafe output path");
@@ -140,16 +149,18 @@ describe("project scaffold Bun CLI", () => {
         "apply",
         "--root",
         project,
-        "--scope",
-        "backend",
+        "--profile",
+        "agents-minimal",
         "--json",
       ]).exitCode,
     ).toBe(0);
     const lockPath = join(project, ".project-scaffold.lock.json");
     const lock = JSON.parse(readFileSync(lockPath, "utf8"));
-    lock.obsoleteFiles["obsolete.md"] = {
-      piece: "agents",
-      renderedSha256: `sha256:${"0".repeat(64)}`,
+    lock.obsoleteFiles = {
+      "obsolete.md": {
+        piece: "agents",
+        renderedSha256: `sha256:${"0".repeat(64)}`,
+      },
     };
     writeFileSync(lockPath, `${JSON.stringify(lock, null, 2)}\n`);
     writeFileSync(join(project, "obsolete.md"), "user-owned content\n");

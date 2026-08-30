@@ -4,6 +4,10 @@ This capability renders a project-neutral Angular 22 monorepo shell. It
 requires the frontend structure and Bun workspace pieces so applications and
 libraries always resolve beneath stable published roots.
 
+It also requires the WebQuark UI-foundation capability. The dependency creates
+an inactive shared seam by default; explicit active integration selects exact
+WebQuark dependencies and conditional Angular shell variants.
+
 ## Fixed generation policy
 
 - Standalone APIs, strict TypeScript/templates, zoneless change detection, and

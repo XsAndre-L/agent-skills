@@ -84,7 +84,24 @@ must select those pieces intentionally.
   zoneless monorepo workspace beneath the roots published by
   `structure.frontend`. It creates applications only beneath
   `frontend.appsRoot`, libraries only beneath `frontend.libsRoot`, and
-  emits the official `angular-developer` and `angular-new-app` skills.
+  emits the official `angular-developer` and `angular-new-app` skills. It also
+  includes the inactive shared WebQuark seam; select `angular-webquark` to
+  activate the exact dependency and Angular connection.
+- `quality.formatting` (order 20) creates one repository-wide EditorConfig
+  and Prettier standard, adds root formatting commands, and excludes generated
+  and vendored outputs without taking ownership of framework linting.
+- `stack.webquark` (order 21) standardizes the shared
+  `frontend/libs/shared/ui-foundation` boundary, WebQuark component reuse,
+  global token ownership, exact loader setup, and Angular integration without
+  creating application-local foundations.
+
+The piece-owned `project-formatting` profile is available for applying the
+mandatory agent foundation, Bun workspace, and repository formatting standard
+without selecting an application framework.
+
+The piece-owned `angular-webquark` profile creates the Angular monorepo with
+the shared WebQuark integration enabled. Direct Angular selection keeps the
+same seam inactive by default.
 
 ## Invariants
 

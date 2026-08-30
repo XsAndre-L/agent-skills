@@ -1,0 +1,32 @@
+# WebQuark UI guidance
+
+Use WebQuark for reusable UI primitives before creating custom replacements.
+The shared boundary is `{webquark.foundationRoot}` and integration is
+`{webquark.integrationEnabled}`.
+
+## Working rules
+
+1. Check the component catalogue below and its version-matched public API.
+2. Prefer direct `q-*` custom elements. A standalone Angular component using them must declare `CUSTOM_ELEMENTS_SCHEMA`.
+3. For compact desktop interfaces, use `size="sm"` when that component documents a public size option.
+4. Put application-wide `--q-*` values only in `{webquark.foundationRoot}/styles/webquark-theme.css`.
+5. Prefer theme tokens for global changes. Use documented Shadow Parts only for isolated exceptions.
+6. Keep reusable wrappers and shared exceptions under `{webquark.foundationRoot}`; create them only when they add reusable project meaning, composition, or behavior.
+7. Never style private shadow DOM or internal implementation classes.
+8. If WebQuark has no suitable component, record the gap. Prefer accessible native HTML for a small gap before adding another UI library.
+
+## Available components
+
+- Actions: `q-button`, `q-chip`, `q-link`
+- Layout and navigation: `q-card`, `q-carousel`, `q-form`, `q-navbar`, `q-panel`, `q-scrollable`, `q-sidepanel`, `q-toolbar`
+- Forms: `q-input`, `q-textarea`, `q-dropdown`, `q-quantity-selector`, `q-radio-group`, `q-toggle`
+- Data and indicators: `q-conversation-bubble`, `q-data-table`, `q-map`, `q-syntax-box`, `q-circular-progress`, `q-step-diagram`, `q-step-diagram-item`
+- Media: `q-avatar`, `q-icon`, `q-reel`, `q-thumbnail`
+- Overlays: `q-dialog`, `q-toast`, `q-tooltip`
+
+Use WebQuark's `docs/components/README.md` for discovery, the matching
+`docs/components/q-*.md` guide for intended use, generated
+`src/components/**/readme.md` and installed TypeScript declarations for the
+public contract, and `docs/theme_variables.md` for tokens. Generated API and
+the installed declarations are authoritative. Canonical source:
+<https://github.com/Purely-IT/WebQuark>.

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 2,
+  "id": "quality.formatting",
+  "version": "1.0.0",
+  "kind": "capability",
+  "required": false,
+  "order": 20,
+  "provides": [
+    "quality.formatting",
+    "repository-formatting"
+  ],
+  "requires": [
+    "core.agents",
+    "workspace.bun-monorepo"
+  ],
+  "suggests": [],
+  "conflicts": [],
+  "owns": [
+    {
+      "path": ".editorconfig",
+      "template": "templates/editorconfig.tmpl"
+    },
+    {
+      "path": ".prettierrc",
+      "template": "templates/prettierrc.json"
+    },
+    {
+      "path": ".prettierignore",
+      "template": "templates/prettierignore"
+    }
+  ],
+  "assemblies": [],
+  "contributes": [
+    {
+      "target": "package.json",
+      "slot": "dev-dependencies",
+      "key": "quality.formatting:dev-dependency",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/dev-dependencies.json.tmpl"
+      }
+    },
+    {
+      "target": "package.json",
+      "slot": "scripts",
+      "key": "quality.formatting:scripts",
+      "fragment": {
+        "type": "json",
+        "source": "fragments/scripts.json"
+      }
+    },
+    {
+      "target": ".agents/shared/commands.md",
+      "slot": "commands.catalog",
+      "key": "quality.formatting:commands",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/commands.md"
+      }
+    },
+    {
+      "target": ".agents/shared/validation.md",
+      "slot": "validation.matrix",
+      "key": "quality.formatting:validation",
+      "fragment": {
+        "type": "markdown",
+        "source": "fragments/validation.md"
+      }
+    }
+  ],
+  "parameters": {
+    "formatting.prettierVersionPolicy": {
+      "type": "string",
+      "required": true,
+      "default": "^3.9.6",
+      "pattern": "^(?:\\^|~)?3\\.[0-9]+\\.[0-9]+$",
+      "description": "Prettier 3 compatible-major package range used by the repository formatting commands."
+    }
+  },
+  "emits": []
+}

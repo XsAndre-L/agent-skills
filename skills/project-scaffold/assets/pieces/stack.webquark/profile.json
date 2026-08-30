@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 2,
+  "id": "angular-webquark",
+  "ownedBy": "stack.webquark",
+  "description": "Create the Angular monorepo structure with the shared WebQuark UI foundation enabled.",
+  "extends": [
+    "agents-minimal"
+  ],
+  "pieces": [
+    "stack.angular"
+  ],
+  "pieceOrders": [],
+  "excludeKinds": [
+    "release",
+    "delivery"
+  ],
+  "parameters": {
+    "webquark.integrationEnabled": true
+  }
+}

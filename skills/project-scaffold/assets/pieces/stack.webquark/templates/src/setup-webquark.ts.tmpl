@@ -1,0 +1,9 @@
+import { defineCustomElements } from '@webquark/core/loader';
+
+export async function setupWebQuark(): Promise<void> {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  await Promise.resolve(defineCustomElements());
+}

@@ -1,0 +1,7 @@
+## WebQuark UI foundation
+
+- Confirm `{webquark.foundationRoot}/styles/foundation.css` imports WebQuark base CSS before `webquark-theme.css`.
+- Confirm application-wide `--q-*` overrides appear only in `webquark-theme.css`.
+- When integration is disabled, reject a WebQuark dependency, loader, or application connection owned by this piece.
+- When integration is enabled, require the exact `@webquark/core` version, the shared browser-safe loader, setup before Angular bootstrap, and foundation styles before application styles.
+- Reject path collisions, floating versions, unresolved roots, private shadow-DOM selectors, and application-local copies of the shared foundation.

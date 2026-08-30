@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 2,
+  "id": "project-formatting",
+  "ownedBy": "quality.formatting",
+  "description": "Install the agent foundation, Bun workspace, and repository-wide formatting standard.",
+  "extends": [
+    "agents-minimal"
+  ],
+  "pieces": [
+    "quality.formatting"
+  ],
+  "pieceOrders": [],
+  "excludeKinds": [
+    "release",
+    "delivery"
+  ],
+  "parameters": {}
+}
