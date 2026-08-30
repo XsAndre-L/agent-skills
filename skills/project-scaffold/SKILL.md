@@ -128,8 +128,14 @@ same seam inactive by default.
   `when: {parameter, equals}` selector, and sort by target, slot, piece
   order, then key after inactive entries are removed.
 - Do not copy this master skill into a generated repository's
-  `.agents/skills`. Emissions are separate, declared formal skills whose
-  folder, destination, and frontmatter identities must match exactly.
+  `.agents/skills`. A user may explicitly install it at
+  `.agents/skills/project-scaffold`; its nested assets and emission sources are
+  internal source material, not installed target skills. Emissions are
+  separate, declared formal skills whose folder, destination, and frontmatter
+  identities must match exactly.
+- Inventory installed repository skills only from immediate
+  `.agents/skills/<skill-name>/SKILL.md` destinations. Nested `SKILL.md` files
+  never create additional installed-skill identities.
 - Treat `.project-scaffold.lock.json` as deterministic provenance. Never use
   it as permission to overwrite a target whose current hash differs from its
   recorded hash.

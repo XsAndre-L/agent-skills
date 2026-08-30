@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "id": "core.agents",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "kind": "foundation",
   "required": true,
   "order": 1,

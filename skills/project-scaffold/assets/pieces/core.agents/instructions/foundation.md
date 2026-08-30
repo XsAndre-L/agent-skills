@@ -132,9 +132,19 @@ not an optional piece or conditionally triggered formal skill.
 Formal skills emit only to `.agents/skills/<name>`. The emitted folder name,
 emission `name`, source folder name, destination basename, and the
 `SKILL.md` frontmatter `name` must match exactly. `SKILL.md` must also
-declare a description. Preflight inventories all repository skill folders and
-rejects duplicate emitted names, duplicate destinations, same-name existing
-skills, output collisions, and identity mismatches before writes.
+declare a description. Target inventory recognizes only immediate installed
+destinations at `.agents/skills/<skill-name>/SKILL.md`; nested `SKILL.md`
+files inside one installed skill are internal files and do not declare more
+target skills. Preflight rejects duplicate emitted names, duplicate
+destinations, same-name top-level installed skills, output collisions, and
+identity mismatches before writes.
+
+The generator never emits or copies the master `project-scaffold` skill into a
+target. A user may explicitly install the complete master skill at
+`.agents/skills/project-scaffold`. Recursive piece, profile, template,
+fragment, instruction, and emission-source discovery continues inside that
+master skill, while its nested emission sources remain outside target-skill
+inventory.
 
 Collision policies are exact:
 

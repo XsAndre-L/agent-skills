@@ -219,6 +219,15 @@ The caller's collision policy remains `fail` unless explicitly changed.
 `replace` applies only to the exact preflighted destination. `migrate`
 requires an explicit declared migration name.
 
+Installed target-skill inventory stops at immediate destinations of the form
+`.agents/skills/<skill-name>/SKILL.md`. Nested `SKILL.md` files inside an
+installed skill—including emission sources inside an explicitly installed
+master scaffold skill—are internal package content and do not declare sibling
+target skills. This target boundary does not change recursive discovery of
+piece manifests, profiles, templates, fragments, instructions, or emission
+sources inside the master skill. The generator never emits the master skill;
+repository-local installation is an explicit user action.
+
 ## Provenance and v0.1 compatibility
 
 Piece digests include the manifest and every referenced template, fragment,

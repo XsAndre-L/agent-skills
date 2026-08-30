@@ -29,7 +29,7 @@ import {
 
 const SKILL_ROOT = resolve(import.meta.dir, "..");
 const SKILL_NAME = "project-scaffold";
-const SKILL_VERSION = "0.12.0";
+const SKILL_VERSION = "0.12.1";
 const PIECES_ROOT = resolve(SKILL_ROOT, "assets", "pieces");
 const PROFILES_PATH = resolve(SKILL_ROOT, "references", "profiles.json");
 const CORE_AGENTS_ID = "core.agents";
@@ -1906,15 +1906,37 @@ function directoryInventory(directory: string): Inventory {
   return { files, digest: sha256Bytes(Buffer.from(digestInput, "utf8")) };
 }
 
-function existingSkillNames(root: string): Map<string, string[]> {
+function installedRepositorySkillNames(root: string): Map<string, string[]> {
   const result = new Map<string, string[]>();
   const skillsRoot = resolve(root, ".agents", "skills");
-  for (const skillPath of walkNamedFiles(skillsRoot, "SKILL.md", "existing formal skills")) {
+  if (!existsSync(skillsRoot)) return result;
+  if (!statSync(skillsRoot).isDirectory()) {
+    throw fail("Repository skill root is not a directory: .agents/skills");
+  }
+  const entries = readdirSync(skillsRoot, { withFileTypes: true }).sort((a, b) =>
+    cmp(a.name, b.name),
+  );
+  for (const entry of entries) {
+    const destinationPath = resolve(skillsRoot, entry.name);
+    if (entry.isSymbolicLink()) {
+      throw fail(`Symlinks are not supported in installed repository skills: ${destinationPath}`);
+    }
+    if (!entry.isDirectory()) continue;
+    const skillEntry = readdirSync(destinationPath, { withFileTypes: true }).find(
+      (candidate) => candidate.name === "SKILL.md",
+    );
+    if (!skillEntry) continue;
+    const skillPath = resolve(destinationPath, skillEntry.name);
+    if (skillEntry.isSymbolicLink()) {
+      throw fail(`Symlinks are not supported in installed repository skills: ${skillPath}`);
+    }
+    if (!skillEntry.isFile()) continue;
     const name = declaredFrontmatterName(readFileSync(skillPath));
     if (!name) continue;
-    const destinations = result.get(name) ?? [];
-    destinations.push(relative(root, dirname(skillPath)).replaceAll("\\", "/"));
-    result.set(name, destinations);
+    const nameKey = name.toLowerCase();
+    const destinations = result.get(nameKey) ?? [];
+    destinations.push(relative(root, destinationPath).replaceAll("\\", "/"));
+    result.set(nameKey, destinations);
   }
   return result;
 }
@@ -1976,7 +1998,7 @@ function planEmissions(
   const planned: PlannedEmission[] = [];
   const emittedNames = new Set<string>();
   const emittedDestinations = new Set<string>();
-  const existingNames = existingSkillNames(root);
+  const existingNames = installedRepositorySkillNames(root);
   const policy = String(composition.parameters.values["emission.collisionPolicy"] ?? "fail");
   if (!POLICIES.includes(policy as (typeof POLICIES)[number])) {
     throw fail(`Unsupported emission collision policy: ${policy}`);
@@ -2015,7 +2037,15 @@ function planEmissions(
       if (destinationExists && !statSync(absoluteDestination).isDirectory()) {
         throw fail(`Formal-skill destination is not a directory: ${destination}`);
       }
-      const sameNameDestinations = (existingNames.get(spec.name) ?? []).sort(cmp);
+      const sameNameDestinations = (existingNames.get(spec.name.toLowerCase()) ?? []).sort(cmp);
+      const differentlyCasedDestination = sameNameDestinations.find(
+        (item) => item.toLowerCase() === destinationKey && item !== destination,
+      );
+      if (differentlyCasedDestination) {
+        throw fail(
+          `Formal-skill destination casing conflicts with ${destination}: ${differentlyCasedDestination}`,
+        );
+      }
       const otherSameNames = sameNameDestinations.filter(
         (item) => item.toLowerCase() !== destinationKey,
       );
