@@ -15,6 +15,27 @@ WebQuark dependencies and conditional Angular shell variants.
 - The workspace is empty at its root: applications live under
   `frontend.appsRoot`, libraries under `frontend.libsRoot`, and
   `frontend.root/src` is never emitted.
+- Each generated application starts with only its bootstrap, application
+  configuration, root route table when routing is enabled, and root component.
+  Do not pre-create empty feature, layout, startup, configuration, shared, or
+  test folders.
+- Extend applications by user-facing capability beneath
+  `src/app/features/<capability>/`. Add plain-purpose `layout/`, `startup/`, or
+  `config/` boundaries only when the application needs them. Do not require
+  vague `core/` or `domains/` folders, and do not organize the application
+  around global `components/`, `services/`, or `types/` buckets.
+- Keep `main.ts` focused on selected integration setup and Angular bootstrap.
+  The root application component and configuration may coordinate
+  application-wide startup, layout, and routing, but ordinary feature behavior
+  stays with its owning capability.
+- Prefer lazy loading for non-initial capabilities. Keep the root route table
+  as the application entry map; move a large capability's child routes into
+  `features/<capability>/<capability>.routes.ts` instead of letting the root
+  table become a feature implementation file.
+- Application-local reuse may live under `src/app/shared/` when it is genuinely
+  needed by multiple capabilities in that application. Cross-application reuse
+  belongs under `frontend.libsRoot`; one application never imports another
+  application's source.
 - Angular framework, CLI, build, compiler-cli, and ng-packagr use
   `angular.versionPolicy`. Angular 22 uses TypeScript 6.0.x; RxJS and tslib
   use the pinned compatible ranges in the manifest fragments.
@@ -23,6 +44,12 @@ WebQuark dependencies and conditional Angular shell variants.
 - Routing, SSR, style mode, applications, and libraries are explicit resolved
   parameters. Apollo, Tauri, adapters, release, delivery, and test-runner
   behavior are outside this piece.
+- This piece emits no test tree or spec TypeScript configuration. A selected
+  testing-layout or runner piece owns those choices; production application
+  TypeScript excludes specs and dedicated `tests/` trees.
+- WebQuark application wiring and shared-foundation style imports appear only
+  when `webquark.integrationEnabled` resolves to `true`. The inactive seam does
+  not add WebQuark imports to an application.
 
 ## Ownership and assembly
 
@@ -49,7 +76,9 @@ requires explicit caller choice, and no migration is declared.
 Static review covers empty and multiple application lists, absent and
 multiple libraries, default membership, application/library name overlap,
 all style modes, routing enabled/disabled, SSR enabled/disabled, relative
-TypeScript paths, package dependency branches, and exact skill inventories.
+TypeScript paths, production exclusion of test sources, absence of optional
+empty folders, package dependency branches, conditional WebQuark wiring, and
+exact skill inventories.
 Failures include unsafe names, duplicate names, absolute or traversing roots,
 root ownership collisions, unresolved template values, incompatible styles,
 and formal-skill identity or destination conflicts.

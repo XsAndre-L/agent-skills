@@ -11,7 +11,9 @@ application is created.
 WebQuark integration is `{webquark.integrationEnabled}`. When enabled, keep
 loader setup and application-wide token overrides in the shared UI foundation
 described by `.agents/shared/webquark.md`; do not create application-local
-copies.
+copies, and keep the foundation stylesheet before application-global styles.
+When disabled, leave the inactive seam unwired and do not add WebQuark imports
+to application source or styles.
 
 For a manual recreation, start from the repository root with an empty Angular
 workspace so Angular never creates `{frontend.root}/src`:
@@ -33,3 +35,19 @@ Routing is resolved as `{angular.routingMode}`: add `--routing` when enabled
 or `--no-routing` when disabled. Do not accept an interactive default. Add
 libraries with the same discipline under `{frontend.libsRoot}`; never use
 Angular CLI's root application layout.
+
+When extending an application:
+
+1. Add product behavior under `src/app/features/<capability>/`. Create no empty
+   `features/`, `layout/`, `startup/`, `config/`, `shared/`, or test folders.
+2. Keep `main.ts` limited to integration setup and bootstrap. Keep ordinary
+   feature behavior out of the root component and application configuration.
+3. Prefer lazy routes for non-initial capabilities. Keep small route groups in
+   `app.routes.ts`; let a large capability own
+   `features/<capability>/<capability>.routes.ts` and load it from the root.
+4. Keep reuse inside `src/app/shared/` only while it is application-local.
+   Promote it beneath `{frontend.libsRoot}` when multiple applications share a
+   stable capability; never import another application's source.
+5. Put app-specific static assets in that application's `public/` folder.
+   Follow the selected testing guidance for tests; this piece does not create
+   test folders or choose a runner.

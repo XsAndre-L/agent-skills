@@ -4,7 +4,12 @@
 - Confirm application and library names do not overlap; overlapping names collide in the assembled `angular.json` projects object.
 - Confirm every project root is beneath the resolved apps or libraries root and no `{frontend.root}/src` application exists.
 - Confirm `angular.json`, package scripts, owned shell paths, and TypeScript extends paths resolve from `{frontend.root}`.
+- Confirm generated applications contain only the selected shell files; optional feature, layout, startup, configuration, shared, and test folders are not emitted empty.
+- Confirm production application TypeScript excludes `*.spec.ts` and dedicated `tests/` trees. A spec configuration must come from a selected testing capability, not this piece.
+- Confirm non-initial capabilities use lazy route boundaries where useful, the root route table remains an entry map, and large capability route groups can own `features/<capability>/<capability>.routes.ts` without making that file mandatory for small features.
+- Confirm application-local shared code does not cross application roots and cross-application reuse resolves beneath `{frontend.libsRoot}`.
 - Confirm the style mode is one of css, scss, sass, or less; routing and SSR outputs match their resolved parameters.
+- Confirm WebQuark source and stylesheet imports exist only when `webquark.integrationEnabled` is true; when enabled, the shared foundation import precedes application-global styles.
 - Confirm Angular packages remain on the declared Angular 22 policy, TypeScript remains on 6.0.x, and optional dependencies appear only for their selected conditions.
 - Confirm emitted `angular-developer` and `angular-new-app` folders, destinations, inventories, and frontmatter names match exactly.
 

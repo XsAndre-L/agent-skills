@@ -4,10 +4,15 @@
 - The Angular workspace root is `{frontend.root}`. It must not contain a root `src/` application.
 - Applications are ordered as `{angular.applicationNames}` and live only under `{frontend.appsRoot}/<application>/`.
 - Reusable Angular libraries are ordered as `{angular.libraryNames}` and live only under `{frontend.libsRoot}/<library>/`.
-- Keep application features and platform adapters inside their owning application. Move code into a library only when it has a real reusable package boundary.
-- Keep shared UI and framework-neutral utilities in libraries; do not make one application import another application's source.
+- Keep `src/main.ts` focused on selected integration setup and Angular bootstrap. The root component and application configuration may coordinate application-wide startup, layout, and routing, but not ordinary feature behavior.
+- Organize product behavior beneath `src/app/features/<capability>/`, using names that describe what users can do. Do not introduce mandatory `core/` or `domains/` folders or global `components/`, `services/`, and `types/` buckets.
+- Create `layout/`, `startup/`, `config/`, `shared/`, and test folders only when their boundary is actually needed. Do not add empty folder trees for possible future work.
+- Keep the root route table as a small application entry map. Prefer lazy `loadComponent` or `loadChildren` boundaries for non-initial capabilities, and let a large capability own `features/<capability>/<capability>.routes.ts`; small route groups may remain in the root table.
+- Use `src/app/shared/` only for code reused by multiple capabilities in one application. Move cross-application UI, utilities, and other capabilities beneath `{frontend.libsRoot}` only when they have a real reusable package boundary.
+- Keep application features and platform adapters inside their owning application; never import another application's source.
+- Keep app-specific static assets under the application's `public/` boundary when they are needed.
 - Treat generated artifacts and `dist/` as outputs, never source ownership.
 - The frontend `package.json`, `angular.json`, and TypeScript configurations are assembled configuration boundaries. Add stack-specific fields through their owning puzzle pieces.
 - Routing is `{angular.routingMode}`, SSR is `{angular.ssr}`, and component styles use `{angular.styleMode}`.
-- No test runner is selected here. Test framework and placement behavior belong to separate capabilities.
-- Read `.agents/shared/webquark.md` before creating UI primitives, using `q-*` elements, or changing the shared UI foundation. Reuse WebQuark components before custom replacements.
+- No test runner or spec configuration is selected here. Follow the selected testing-layout guidance; this Angular piece creates no test folders.
+- WebQuark integration is `{webquark.integrationEnabled}`. When it is enabled, read `.agents/shared/webquark.md`, reuse WebQuark components before custom replacements, and keep the shared foundation import before application-global styles. When it is disabled, do not add WebQuark imports to application source or styles.
