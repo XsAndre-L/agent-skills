@@ -10,8 +10,29 @@ Creates beautiful, verifiable architecture, workflow, sequence, data-flow,
 and lifecycle diagrams as self-contained HTML artifacts.
 
 - Source: [skills/archify](skills/archify/)
-- Upstream: [XsAndre-L/archify](https://github.com/XsAndre-L/archify)
+- Official upstream: [tt-a1i/archify](https://github.com/tt-a1i/archify)
+- Imported revision: [`5769ace`](https://github.com/tt-a1i/archify/commit/5769acefcc2ebd696a4f9ed3ac9cb6cca1d75c70)
 - [Download only archify.skill](https://raw.githubusercontent.com/XsAndre-L/AgentSkills/main/packages/archify.skill)
+
+### frontend-design
+
+Anthropic's guidance for distinctive, intentional frontend design and UI/UX
+implementation.
+
+- Source: [skills/frontend-design](skills/frontend-design/)
+- Official upstream: [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/frontend-design)
+- Imported revision: [`41bbe19`](https://github.com/anthropics/skills/commit/41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f)
+- [Download only frontend-design.skill](https://raw.githubusercontent.com/XsAndre-L/AgentSkills/main/packages/frontend-design.skill)
+
+### mcp-builder
+
+Anthropic's guide for building high-quality MCP servers that integrate external
+APIs and services with Python or Node/TypeScript.
+
+- Source: [skills/mcp-builder](skills/mcp-builder/)
+- Official upstream: [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/mcp-builder)
+- Imported revision: [`b9e19e6`](https://github.com/anthropics/skills/commit/b9e19e6f44773509fbdd7001d77ff41a49a486c1)
+- [Download only mcp-builder.skill](https://raw.githubusercontent.com/XsAndre-L/AgentSkills/main/packages/mcp-builder.skill)
 
 ### project-scaffold
 
@@ -33,6 +54,26 @@ Invoke-WebRequest https://raw.githubusercontent.com/XsAndre-L/AgentSkills/main/p
 Import the resulting `.skill` package into a compatible agent, or extract it
 to that agent's personal skills directory. The archive contains one top-level
 `project-scaffold/` folder.
+
+### skill-creator
+
+Anthropic's official workflow for creating, improving, evaluating, and
+packaging skills that follow the Agent Skills open standard.
+
+- Source: [skills/skill-creator](skills/skill-creator/)
+- Upstream: [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/skill-creator)
+- [Download only skill-creator.skill](https://raw.githubusercontent.com/XsAndre-L/AgentSkills/main/packages/skill-creator.skill)
+
+### template-skill
+
+Anthropic's official minimal starting template for creating a new Agent Skill.
+Its placeholder description and instruction must be replaced in each derived
+skill.
+
+- Source: [skills/template-skill](skills/template-skill/)
+- Official upstream: [anthropics/skills template](https://github.com/anthropics/skills/tree/main/template)
+- Imported revision: [`ef74077`](https://github.com/anthropics/skills/commit/ef740771ac901e03fbca3ce4e1c453a96010f30a)
+- [Download only template-skill.skill](https://raw.githubusercontent.com/XsAndre-L/AgentSkills/main/packages/template-skill.skill)
 
 ## Repository layout
 
